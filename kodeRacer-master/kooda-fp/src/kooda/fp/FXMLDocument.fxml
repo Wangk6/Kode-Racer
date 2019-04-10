@@ -17,16 +17,6 @@
             <Font name="VCR OSD Mono" size="13.0" />
          </font>
       </Button>
-      <Button layoutX="300.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressSettings" prefHeight="50.0" prefWidth="200.0" text="Settings" textAlignment="CENTER">
-         <font>
-            <Font name="VCR OSD Mono" size="13.0" />
-         </font>
-      </Button>
-      <Button layoutX="300.0" layoutY="437.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="50.0" prefWidth="200.0" text="Quit" textAlignment="CENTER">
-         <font>
-            <Font name="VCR OSD Mono" size="13.0" />
-         </font>
-      </Button>
       <Text id="landing-title" layoutX="224.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" text="KODE RACER">
          <font>
             <Font name="VCR OSD Mono" size="60.0" />
@@ -37,5 +27,15 @@
             <Font name="VCR OSD Mono" size="12.0" />
          </font>
       </Text>
+      <Button layoutX="300.0" layoutY="370.0" mnemonicParsing="false" onAction="#pressSettings" prefHeight="50.0" prefWidth="200.0" text="Settings" textAlignment="CENTER">
+         <font>
+            <Font name="VCR OSD Mono" size="13.0" />
+         </font>
+      </Button>
+      <Button layoutX="300.0" layoutY="437.0" mnemonicParsing="false" onAction="#quitApp" prefHeight="50.0" prefWidth="200.0" text="Quit" textAlignment="CENTER">
+         <font>
+            <Font name="VCR OSD Mono" size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
