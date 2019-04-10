@@ -13,10 +13,14 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 
 public class SettingsController implements Initializable {
+    //Track fullscreen, 0-Off 1-On
+    public static int on = 0;
+    //Global settings object
+    public static Settings s = new Settings();
+    
     @FXML
     private AnchorPane landing;
-	//Track fullscreen, 0-Off 1-On
-	int on = 0;
+	
     @FXML
     private AnchorPane levelSelect;
 
@@ -28,16 +32,26 @@ public class SettingsController implements Initializable {
 
     @FXML
     void fullScreen(ActionEvent event) {
-    	//String text = mBtnFullScreen.getText();
-    	if(on == 0) {
-    		//Set fullscreen button text to on
-    		mBtnFullScreen.setText("Full Screen: ON");
-    		//Make on = 1 so we can reverse
-    		on = 1;
-    	} else if (on == 1) {
-    		mBtnFullScreen.setText("Full Screen: OFF");
-    		on = 0;
-    	}
+        
+        //switch statement makes more sense here
+        //gets the current state of fullscreen from the global object
+        //then sets the global object according to the users preference
+        switch (s.getFullScreen()) {
+            case 0:
+                SettingsController.on = 1;
+                s.setFullScreen(SettingsController.on);
+                mBtnFullScreen.setText("Full Screen: ON");
+                break;
+            case 1:
+                SettingsController.on = 0;
+                s.setFullScreen(SettingsController.on);
+                mBtnFullScreen.setText("Full Screen: OFF");
+                break;
+            default:
+                break;
+        }
+        
+        System.out.println(SettingsController.on);
     }
 
     @FXML
@@ -46,10 +60,15 @@ public class SettingsController implements Initializable {
         landing.getChildren().setAll(pane);
     }
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        
+        //when scene is initialized load it with the "saved" settings from the global object
+        if(s.getFullScreen() == 1){
+            mBtnFullScreen.setText("Full Screen: ON");
+        }else if(s.getFullScreen() == 0){
+            mBtnFullScreen.setText("Full Screen: OFF");
+        }
+    }
 
 }

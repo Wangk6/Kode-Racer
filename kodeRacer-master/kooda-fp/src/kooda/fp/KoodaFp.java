@@ -27,12 +27,14 @@ public class KoodaFp extends Application {
         stage.setScene(scene);
         stage.show();
         
+        System.out.println(SettingsController.s.getFullScreen());
     }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
+        System.out.println(SettingsController.s.getFullScreen());
     }
     
 }
