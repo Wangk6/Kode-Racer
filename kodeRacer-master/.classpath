@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="kooda-fp/src"/>
+	<classpathentry kind="lib" path="kooda-fp/dist/kooda-fp.jar"/>
+	<classpathentry kind="lib" path="kooda-fp/dist/run1300475619/kooda-fp.jar"/>
+	<classpathentry kind="lib" path="kooda-fp/dist/run199451307/kooda-fp.jar"/>
+	<classpathentry kind="output" path="kooda-fp/bin"/>
+</classpath>
