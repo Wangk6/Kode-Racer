@@ -10,7 +10,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 
-public class LevelOneController implements Initializable {
+public class LevelOneController extends Controller implements Initializable {
 
     /**
      * Initializes the controller class.

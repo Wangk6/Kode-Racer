@@ -5,9 +5,9 @@
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="kooda.fp.LevelOneController">
    <children>
-      <Button layoutX="750.0" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="→" />
-      <Button layoutX="700.0" layoutY="50.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="←" />
-      <Button layoutX="750.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="↓" />
-      <Button layoutX="700.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="↑" />
+      <Button fx:id="left" layoutX="600.0" layoutY="0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="→" />
+      <Button fx:id="right" layoutX="650.0" layoutY="0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="←" />
+      <Button fx:id="down" layoutX="750.0" layoutY="0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="↓" />
+      <Button fx:id="up" layoutX="700.0" layoutY="0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" text="↑" />
    </children>
 </AnchorPane>
