@@ -6,6 +6,7 @@
 package kooda.fp;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
@@ -17,7 +18,9 @@ public class LevelOneController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        //use the init method to set the sequence of each level
+        setSequence(0 , "left");
+        System.out.println(Arrays.toString(getSequence()));
     }    
     
 }
