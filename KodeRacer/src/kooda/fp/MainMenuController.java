@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
@@ -43,8 +44,13 @@ public class MainMenuController implements Initializable {
     @FXML //Settings menu
     private void pressSettings(ActionEvent event) throws IOException {
     	System.out.println("Settings");
-    	AnchorPane pane = FXMLLoader.load(getClass().getResource("SettingsPage.fxml"));
+    	FXMLLoader fxm = new FXMLLoader(getClass().getResource("SettingsPage.fxml"));
+    	
+    	AnchorPane pane=fxm.load();
         landing.getChildren().setAll(pane);
+        SettingsController sc=(SettingsController)fxm.getController();
+       
+        
     }
 
     @FXML

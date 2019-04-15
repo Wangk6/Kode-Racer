@@ -8,15 +8,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 public class SettingsController implements Initializable {
     //Track fullscreen, 0-Off 1-On
     public static int on = 0;
     //Global settings object
     public static Settings s = new Settings();
+    Stage sn;
     
     @FXML
     private AnchorPane landing;
@@ -41,11 +44,13 @@ public class SettingsController implements Initializable {
                 SettingsController.on = 1;
                 s.setFullScreen(SettingsController.on);
                 mBtnFullScreen.setText("Full Screen: ON");
+                ((Stage)((Button)event.getSource()).getScene().getWindow()).setResizable(true);
                 break;
             case 1:
                 SettingsController.on = 0;
                 s.setFullScreen(SettingsController.on);
                 mBtnFullScreen.setText("Full Screen: OFF");
+                ((Stage)((Button)event.getSource()).getScene().getWindow()).setResizable(false);
                 break;
             default:
                 break;
@@ -54,9 +59,10 @@ public class SettingsController implements Initializable {
         System.out.println(SettingsController.on);
     }
 
+
     @FXML
     void goHome(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         landing.getChildren().setAll(pane);
     }
 

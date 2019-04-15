@@ -28,14 +28,14 @@ public class Player extends Pane{
 	int fuel = 2; 
 	
     
-    Rectangle removeFuel = null;
-    SpriteAnimation animation;
-    public Player(ImageView playermodel) {
-    	this.playermodel = playermodel;
-    	this.playermodel.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-    	animation = new SpriteAnimation(imageView,Duration.millis(200), count, columns, offsetX, offsetY, width, height);
-    	getChildren().addAll(playermodel);
-    }
+//    Rectangle removeFuel = null;
+//    SpriteAnimation animation;
+//    public Player(ImageView playermodel) {
+//    	this.playermodel = playermodel;
+//    	this.playermodel.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
+//    	animation = new SpriteAnimation(imageView,Duration.millis(200), count, columns, offsetX, offsetY, width, height);
+//    	getChildren().addAll(playermodel);
+//    }
     
 	public void setOffsetX(int offsetX) {
 		this.offsetX = offsetX;
