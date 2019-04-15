@@ -1,21 +1,17 @@
 package kooda.fp;
 
-public class Settings extends Driver{
+public class Settings{
 
-	int fullScreen;
+	static int fullScreen;
 	int volume;
 	
-	public Settings() {
-		fullScreen = 0;
-		volume = 0;
-	}
-	
-	public int getFullScreen() {
+	public static int getFullScreen() {
 		return fullScreen;
 	}
 
-	public void setFullScreen(int fullScreen) {
-		this.fullScreen = fullScreen;
+	public static void setFullScreen(int value) {
+		fullScreen = value;
+		System.out.println("getFullSreen" + fullScreen);
 	}
 
 	public int getVolume() {

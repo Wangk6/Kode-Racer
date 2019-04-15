@@ -16,25 +16,22 @@ public class Driver extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         
         Scene scene = new Scene(root);
         
         scene.getStylesheets().add(getClass().getResource("main.css").toExternalForm());
         stage.setTitle("Kode Racer");
-        stage.getIcons().add(new Image(this.getClass().getResource("gameIcon.png").toString())); 
+        stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString())); 
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
-        
-        System.out.println(SettingsController.s.getFullScreen());
     }
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-        System.out.println(SettingsController.s.getFullScreen());
     }
     
 }

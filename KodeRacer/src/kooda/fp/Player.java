@@ -4,36 +4,31 @@
  * and open the template in the editor.
  */
 package kooda.fp;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
+import level.Sprite;
 
-public class Player extends Pane{
+public abstract class Player extends Pane{
 	//Player Config////////////////////////////////
 	ImageView playermodel;
 	int offsetX = 0;
 	int offsetY = 0;
-	//Character size
+	//Default Character size
 	int height = 32;
 	int width = 32;
-
+	
+	//Current players model
+	String playerModel = "default";
 	//Character fuel/life 
 	int fuel = 2; 
 	
-    
-    Rectangle removeFuel = null;
-    SpriteAnimation animation;
     public Player(ImageView playermodel) {
     	this.playermodel = playermodel;
     	this.playermodel.setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-    	animation = new SpriteAnimation(imageView,Duration.millis(200), count, columns, offsetX, offsetY, width, height);
+        Sprite player1 = new Sprite(200, 200, height, width, playerModel, Color.RED);
     	getChildren().addAll(playermodel);
     }
     
@@ -57,12 +52,8 @@ public class Player extends Pane{
 	 * Fuel is transferred to the next stage
 	 * Fuel is used to unlock player vehicles
 	 */
-    public int getFuel() {
-    	return fuel;
-    }
-    public void setFuel(int fuel) {
-    	this.fuel = fuel;
-    }
+    public abstract int getFuel();
+    public abstract void setFuel(int fuel);
 
     
 }

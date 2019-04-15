@@ -1,4 +1,4 @@
-package kooda.fp;
+package controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,13 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import kooda.fp.Settings;
 
 public class SettingsController implements Initializable {
-    //Track fullscreen, 0-Off 1-On
-    public static int on = 0;
-    //Global settings object
-    public static Settings s = new Settings();
-    
+    //Track fullscreen, 0-Off 1-toggle
+    int toggle = 0;
+    Stage sn;
     @FXML
     private AnchorPane landing;
 	
@@ -26,7 +26,7 @@ public class SettingsController implements Initializable {
 
     @FXML
     private Button mBtnFullScreen;
-
+    
     @FXML
     private Slider mVolumeSlider;
 
@@ -36,37 +36,37 @@ public class SettingsController implements Initializable {
         //switch statement makes more sense here
         //gets the current state of fullscreen from the global object
         //then sets the global object according to the users preference
-        switch (s.getFullScreen()) {
+        switch (Settings.getFullScreen()) {
             case 0:
-                SettingsController.on = 1;
-                s.setFullScreen(SettingsController.on);
+                toggle = 1;
+                Settings.setFullScreen(toggle);
                 mBtnFullScreen.setText("Full Screen: ON");
-                break;
+                ((Stage)((Button)event.getSource()).getScene().getWindow()).setResizable(true); //Professor added 
+                break;   
             case 1:
-                SettingsController.on = 0;
-                s.setFullScreen(SettingsController.on);
+                toggle = 0;
+                Settings.setFullScreen(toggle);
                 mBtnFullScreen.setText("Full Screen: OFF");
-                break;
-            default:
+                ((Stage)((Button)event.getSource()).getScene().getWindow()).setResizable(false);
                 break;
         }
         
-        System.out.println(SettingsController.on);
+        System.out.println(toggle);
     }
 
     @FXML
     void goHome(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         landing.getChildren().setAll(pane);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
         //when scene is initialized load it with the "saved" settings from the global object
-        if(s.getFullScreen() == 1){
+        if(Settings.getFullScreen() == 1){
+        	//s.setFullScreen(toggle);
             mBtnFullScreen.setText("Full Screen: ON");
-        }else if(s.getFullScreen() == 0){
+        }else if(Settings.getFullScreen() == 0){
             mBtnFullScreen.setText("Full Screen: OFF");
         }
     }

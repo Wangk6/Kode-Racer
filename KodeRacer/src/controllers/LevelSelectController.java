@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package kooda.fp;
+package controllers;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,7 +44,7 @@ public class LevelSelectController implements Initializable {
     @FXML
     private void goHome(ActionEvent event) throws IOException{
         System.out.println("Home");
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         levelSelect.getChildren().setAll(pane);
     }
     
@@ -58,8 +58,8 @@ public class LevelSelectController implements Initializable {
             case 1: 
                 //Select lvl 1
                 System.out.println("Level 1");
-                AnchorPane pane = FXMLLoader.load(getClass().getResource("LevelOne.fxml"));
-                levelSelect.getChildren().setAll(pane);
+                //AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/LevelOne.fxml"));
+                //levelSelect.getChildren().setAll(pane);
                 break;
             case 2:
                 //Select lvl 2
