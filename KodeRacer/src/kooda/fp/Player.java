@@ -21,8 +21,12 @@ public class Player extends Pane{
 	int offsetX = 0;
 	int offsetY = 0;
 	//Character size
-	int height = 32;
-	int width = 32;
+	
+	//int height = 32;
+	//int width = 32;
+	
+	int height = 50;
+	int width = 50;
 
 	//Character fuel/life 
 	int fuel = 2; 

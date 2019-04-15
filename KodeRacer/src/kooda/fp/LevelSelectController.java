@@ -40,11 +40,11 @@ public class LevelSelectController implements Initializable {
     /**
      * Selection to go back to landing splash
      */
-      
+    
     @FXML
     private void goHome(ActionEvent event) throws IOException{
         System.out.println("Home");
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
         levelSelect.getChildren().setAll(pane);
     }
     
