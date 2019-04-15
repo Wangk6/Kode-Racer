@@ -1,6 +1,6 @@
 package kooda.fp;
 
-public class Settings extends KoodaFp{
+public class Settings extends Driver{
 
 	int fullScreen;
 	int volume;
