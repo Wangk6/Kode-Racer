@@ -59,7 +59,6 @@ public class SettingsController implements Initializable {
         System.out.println(SettingsController.on);
     }
 
-
     @FXML
     void goHome(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));

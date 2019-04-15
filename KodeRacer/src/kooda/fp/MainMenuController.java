@@ -45,7 +45,6 @@ public class MainMenuController implements Initializable {
     private void pressSettings(ActionEvent event) throws IOException {
     	System.out.println("Settings");
     	FXMLLoader fxm = new FXMLLoader(getClass().getResource("SettingsPage.fxml"));
-    	
     	AnchorPane pane=fxm.load();
         landing.getChildren().setAll(pane);
         SettingsController sc=(SettingsController)fxm.getController();
