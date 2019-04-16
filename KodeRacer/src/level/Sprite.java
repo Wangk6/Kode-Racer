@@ -26,4 +26,5 @@ public class Sprite extends Rectangle {
 	void moveDown() {
 		setTranslateX(getTranslateY() + 5); //Move left 5
 	}
+	
 }
