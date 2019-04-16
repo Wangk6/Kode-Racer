@@ -13,18 +13,27 @@ public class Sprite extends Rectangle {
 		setLayoutY(y);
 		setFill(color);
 	}
-	
-	void moveLeft() {
+	/*
+	 * 0 - up
+	 * 1 - down
+	 * 2 - left
+	 * 3 - right
+	 */
+	int moveLeft() {
 		setTranslateX(getTranslateX() - 5); //Move left 5
+		return 2;
 	}
-	void moveRight() {
+	int moveRight() {
 		setTranslateX(getTranslateX() + 5); //Move left 5
+		return 3;
 	}
-	void moveUp() {
+	int moveUp() {
 		setTranslateY(getTranslateY() - 5); //Move left 5
+		return 0;
 	}
-	void moveDown() {
+	int moveDown() {
 		setTranslateX(getTranslateY() + 5); //Move left 5
+		return 1;
 	}
 	
 }

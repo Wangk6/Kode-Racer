@@ -2,6 +2,7 @@ package level;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import javafx.event.ActionEvent;
@@ -21,28 +22,6 @@ import kooda.fp.Settings;
 public class LevelOne{
 	
 	Stage stage = new Stage();
-	
-	/*
-	 * We will be using two arrays to keep track of our user movements
-	 * playerSequence will record all the steps the user puts in
-	 * playerSequence will be ran against levelSequence when user hits 'run'
-	 * If they match you win the level if not you restart over
-	 */
-	
-	//Init levelSequence
-	
-	public void seqInit() {
-		int[] lSequence = {0 , 1 , 2 , 3 , 0 , 1}; // level pre defined sequence - change each level
-		/*
-		 * 0 - up
-		 * 1 - down
-		 * 2 - left
-		 * 3 - right
-		 */
-		int seqLen = lSequence.length;
-		int[] mSequence = new int[seqLen];
-		System.out.println(Arrays.toString(lSequence));
-	}
 	
 	boolean fullScreen = false;
 	
@@ -71,8 +50,27 @@ public class LevelOne{
     private Button directionRight = new Button(); //returns 3
     
     
+    private int stepCount = 0;
     
+    /*
+	 * We will be using two arrays to keep track of our user movements
+	 * playerSequence will record all the steps the user puts in
+	 * playerSequence will be ran against levelSequence when user hits 'run'
+	 * If they match you win the level if not you restart over
+	 */
+	
+	//levelSequence
+    int[] lSequence = {0 , 1 , 2 , 3 , 0 , 1};
+    int seqLen = lSequence.length;
+    int[] uSequence = new int[seqLen];
+    /*
+	 * 0 - up
+	 * 1 - down
+	 * 2 - left
+	 * 3 - right
+	 */
     
+
 	private Parent createContent() {
 		//Set the level size
 		root.setPrefSize(900, 900);
@@ -121,28 +119,52 @@ public class LevelOne{
 		directionUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//add to sequence
+            	if(stepCount < seqLen) {
+            		//Add sequence to user array
+            		uSequence[stepCount] = player1.moveUp();
+            		stepCount += 1;
+            	}else {
+            		System.err.println("Out of Bounds"); //Handle this better
+            	}
             }
         });
 		
 		directionDown.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//add to sequence
+            	if(stepCount < seqLen) {
+            		//Add sequence to user array
+            		uSequence[stepCount] = player1.moveDown();
+            		stepCount += 1;
+            	}else {
+            		System.err.println("Out of Bounds");
+            	}
             }
         });
 		
 		directionLeft.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//add to sequence
+            	if(stepCount < seqLen) {
+            		//Add sequence to user array
+            		uSequence[stepCount] = player1.moveLeft();
+            		stepCount += 1;
+            	}else {
+            		System.err.println("Out of Bounds");
+            	}
             }
         });
 		
 		directionRight.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//add to sequence
+            	if(stepCount < seqLen) {
+            		//Add sequence to user array
+            		uSequence[stepCount] = player1.moveRight();
+            		stepCount += 1;
+            	}else {
+            		System.err.println("Out of Bounds");
+            	}
             }
         });
 		
@@ -151,7 +173,9 @@ public class LevelOne{
 		play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	//compare sequence
+            	System.out.println("Level: " + Arrays.toString(lSequence));
+            	System.out.println("User: " + Arrays.toString(uSequence));
+            	//Match Arrays here
             }
         });
 		
@@ -176,7 +200,6 @@ public class LevelOne{
 		stage.setScene(new Scene(createContent()));
 		stage.show();
 		
-		seqInit(); //init each levels sequence
 
 	}
 	
