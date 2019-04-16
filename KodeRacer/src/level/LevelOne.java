@@ -121,7 +121,7 @@ public class LevelOne{
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
             		//Add sequence to user array
-            		uSequence[stepCount] = player1.moveUp();
+            		uSequence[stepCount] = player1.Up();
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds"); //Handle this better
@@ -134,7 +134,7 @@ public class LevelOne{
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
             		//Add sequence to user array
-            		uSequence[stepCount] = player1.moveDown();
+            		uSequence[stepCount] = player1.Down();
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -147,7 +147,7 @@ public class LevelOne{
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
             		//Add sequence to user array
-            		uSequence[stepCount] = player1.moveLeft();
+            		uSequence[stepCount] = player1.Left();
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -160,7 +160,7 @@ public class LevelOne{
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
             		//Add sequence to user array
-            		uSequence[stepCount] = player1.moveRight();
+            		uSequence[stepCount] = player1.Right();
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -175,7 +175,32 @@ public class LevelOne{
             public void handle(ActionEvent event) {
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
-            	//Match Arrays here
+            	for(int i = 0; i < seqLen; i++) {
+            		if(lSequence[i] == uSequence[i]) {
+            			
+            			int temp = uSequence[i];
+            			
+            			switch(temp) {
+            			//Animate the sprite *** IMPORTANT!!!
+            				case 0:
+            					player1.moveUp();
+            					break;
+            				case 1:
+            					player1.moveDown();
+            					break;
+            				case 2:
+            					player1.moveLeft();
+            					break;
+            				case 3:
+            					player1.moveRight();
+            					break;
+            			}
+            			
+            		}else {
+            			//do jitter animation
+            			System.err.println("Wrong Sequence");
+            		}
+            	}
             }
         });
 		

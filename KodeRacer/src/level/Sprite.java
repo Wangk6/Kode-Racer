@@ -19,21 +19,32 @@ public class Sprite extends Rectangle {
 	 * 2 - left
 	 * 3 - right
 	 */
-	int moveLeft() {
-		setTranslateX(getTranslateX() - 5); //Move left 5
-		return 2;
-	}
-	int moveRight() {
-		setTranslateX(getTranslateX() + 5); //Move left 5
-		return 3;
-	}
-	int moveUp() {
-		setTranslateY(getTranslateY() - 5); //Move left 5
+	
+	int Up() {
 		return 0;
 	}
-	int moveDown() {
-		setTranslateX(getTranslateY() + 5); //Move left 5
+	int Down() {
 		return 1;
+	}
+	int Left() {
+		return 2;
+	}
+	int Right() {
+		return 3;
+	}
+	
+	void moveLeft() {
+		setTranslateX(getTranslateX() - 5); //Move left 5
+	}
+	void moveRight() {
+		setTranslateX(getTranslateX() + 5); //Move left 5
+	}
+	void moveUp() {
+		setTranslateY(getTranslateY() - 5); //Move left 5
+		
+	}
+	void moveDown() {
+		setTranslateX(getTranslateY() + 5); //Move left 5
 	}
 	
 }
