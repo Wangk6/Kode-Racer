@@ -5,6 +5,9 @@ import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -16,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import kooda.fp.Settings;
 
 public class LevelOne{
@@ -54,8 +58,8 @@ public class LevelOne{
 	 */
 	
 	//levelSequence
-    int[] lSequence = {0 , 0 , 0 , 0 , 0 , 0};
-    int[] translateLength = {30 , 60 , 30 , 60 , 30 , 60};
+    int[] lSequence = {0 , 2 , 1 , 1 , 1 , 1};
+    int[] translateLength = {10 , 10 , 10 , 10 , 10 , 10};
     int seqLen = lSequence.length;
     int[] uSequence = new int[seqLen];
     /*
@@ -164,6 +168,10 @@ public class LevelOne{
 		play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+            	
+            	final SequentialTransition st = new SequentialTransition();
+            	st.setDelay(Duration.millis(1000));
+            	 
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
             	for(int i = 0; i < seqLen; i++) {
@@ -175,16 +183,16 @@ public class LevelOne{
             			
             			switch(temp) {
             				case 0:
-            					player1.moveUp(transTemp);
+            					st.getChildren().addAll(player1.moveUp(transTemp));
             					break;
             				case 1:
-            					player1.moveDown(transTemp);
+            					st.getChildren().addAll(player1.moveDown(transTemp));
             					break;
             				case 2:
-            					player1.moveLeft(transTemp);
+            					st.getChildren().addAll(player1.moveLeft(transTemp));
             					break;
             				case 3:
-            					player1.moveRight(transTemp);
+            					st.getChildren().addAll(player1.moveRight(transTemp));
             					break;
             			}
             			
@@ -193,6 +201,9 @@ public class LevelOne{
             			System.err.println("Wrong Sequence");
             		}
             	}
+            	st.setCycleCount(Timeline.INDEFINITE);
+            	st.setAutoReverse(true);
+            	st.play();
             }
         });
 		

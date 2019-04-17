@@ -1,5 +1,7 @@
 package level;
 
+import javafx.animation.Animation.Status;
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -8,7 +10,11 @@ import javafx.util.Duration;
 public class Sprite extends Rectangle {
     String type; 
     
-    TranslateTransition moveSprite = new TranslateTransition();
+    TranslateTransition left = new TranslateTransition();
+    TranslateTransition right = new TranslateTransition();
+    TranslateTransition up = new TranslateTransition();
+    TranslateTransition down = new TranslateTransition();
+    
 	
 	public Sprite(int x, int y, int w, int h, String type, Color color){
 		super(w, h);
@@ -37,41 +43,41 @@ public class Sprite extends Rectangle {
 		return 3;
 	}
 	//Takes a parameter of translate so according the level the motion will happen
-	void moveLeft(int translate) {
-		TranslateTransition left = new TranslateTransition();
+	TranslateTransition moveLeft(int translate) {
 		left.setDuration(Duration.millis(1000)); 
 		left.setNode(this); 
 		left.setByX(-translate); //left
 		left.setCycleCount(1); 
 		left.setAutoReverse(false); 
 		left.play();
+		return left;
 	}
-	void moveRight(int translate) {
-		TranslateTransition right = new TranslateTransition();
+	TranslateTransition moveRight(int translate) {
 		right.setDuration(Duration.millis(1000)); 
 		right.setNode(this); 
 		right.setByX(translate); //right
 		right.setCycleCount(1); 
 		right.setAutoReverse(false); 
 		right.play();
+		return right;
 	}
-	void moveUp(int translate) {
-		TranslateTransition up = new TranslateTransition();
+	TranslateTransition moveUp(int translate) {
 		up.setDuration(Duration.millis(1000)); 
 		up.setNode(this); 
 		up.setByY(-translate); //up 
 		up.setCycleCount(1); 
 		up.setAutoReverse(false); 
 		up.play();
+		return up;
 	}
-	void moveDown(int translate) {
-		TranslateTransition down = new TranslateTransition();
+	TranslateTransition moveDown(int translate) {
 		down.setDuration(Duration.millis(1000)); 
 		down.setNode(this); 
 		down.setByY(translate); //down
 		down.setCycleCount(1); 
 		down.setAutoReverse(false); 
 		down.play();
+		return down;
 	}
 	
 }
