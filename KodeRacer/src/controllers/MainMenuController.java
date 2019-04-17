@@ -6,9 +6,13 @@
 package controllers;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
+
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,8 +27,11 @@ import javafx.stage.Stage;
 import kooda.fp.Driver;
 import kooda.fp.Settings;
 import level.LevelOne;
+import java.io.*;
+import sun.audio.*;
 
 public class MainMenuController implements Initializable {
+	
     public static LevelOne one = new LevelOne();
     @FXML
     private AnchorPane landing;
@@ -81,6 +88,31 @@ public class MainMenuController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-    }    
+    }
     
-}
+    //adding sound at start of program
+    public static void main(String[] args) throws Exception {
+    	
+         themeSong("C:\\Users\\Freed\\git\\kodeRacer\\KodeRacer\\src\\assets\\Pacman.wav");
+        
+        }
+    
+    public static void themeSong(String filepath) {
+    	
+    	InputStream sound;
+    	try {
+    		
+    		sound = new FileInputStream(new File(filepath));
+    		AudioStream audio = new AudioStream(sound);
+    		AudioPlayer.player.start(audio);
+    		   		
+    	}
+    	catch(Exception e) {
+    		
+    		JOptionPane.showMessageDialog(null, "Error playing sound file");
+    		
+    	}
+    }
+ 	
+  }
+
