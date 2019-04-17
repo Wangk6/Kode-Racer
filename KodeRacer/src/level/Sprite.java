@@ -1,10 +1,14 @@
 package level;
 
+import javafx.animation.TranslateTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class Sprite extends Rectangle {
     String type; 
+    
+    TranslateTransition moveSprite = new TranslateTransition();
 	
 	public Sprite(int x, int y, int w, int h, String type, Color color){
 		super(w, h);
@@ -34,17 +38,40 @@ public class Sprite extends Rectangle {
 	}
 	//Takes a parameter of translate so according the level the motion will happen
 	void moveLeft(int translate) {
-		setTranslateX(getTranslateX() - translate); //Move left
+		TranslateTransition left = new TranslateTransition();
+		left.setDuration(Duration.millis(1000)); 
+		left.setNode(this); 
+		left.setByX(-translate); //left
+		left.setCycleCount(1); 
+		left.setAutoReverse(false); 
+		left.play();
 	}
 	void moveRight(int translate) {
-		setTranslateX(getTranslateX() + translate); //Move right
+		TranslateTransition right = new TranslateTransition();
+		right.setDuration(Duration.millis(1000)); 
+		right.setNode(this); 
+		right.setByX(translate); //right
+		right.setCycleCount(1); 
+		right.setAutoReverse(false); 
+		right.play();
 	}
 	void moveUp(int translate) {
-		setTranslateY(getTranslateY() - translate); //Move up
-		
+		TranslateTransition up = new TranslateTransition();
+		up.setDuration(Duration.millis(1000)); 
+		up.setNode(this); 
+		up.setByY(-translate); //up 
+		up.setCycleCount(1); 
+		up.setAutoReverse(false); 
+		up.play();
 	}
 	void moveDown(int translate) {
-		setTranslateX(getTranslateY() + translate); //Move down
+		TranslateTransition down = new TranslateTransition();
+		down.setDuration(Duration.millis(1000)); 
+		down.setNode(this); 
+		down.setByY(translate); //down
+		down.setCycleCount(1); 
+		down.setAutoReverse(false); 
+		down.play();
 	}
 	
 }

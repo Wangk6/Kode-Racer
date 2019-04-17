@@ -54,7 +54,7 @@ public class LevelOne{
 	 */
 	
 	//levelSequence
-    int[] lSequence = {0 , 1 , 2 , 3 , 0 , 1};
+    int[] lSequence = {0 , 0 , 0 , 0 , 0 , 0};
     int[] translateLength = {30 , 60 , 30 , 60 , 30 , 60};
     int seqLen = lSequence.length;
     int[] uSequence = new int[seqLen];
@@ -174,8 +174,6 @@ public class LevelOne{
             			
             			
             			switch(temp) {
-            			//Animate the sprite *** IMPORTANT!!!
-            			//This teleports. Make the animation go step by step
             				case 0:
             					player1.moveUp(transTemp);
             					break;
