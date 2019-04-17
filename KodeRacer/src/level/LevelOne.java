@@ -18,7 +18,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import kooda.fp.Settings;
 
-
 public class LevelOne{
 	
 	Stage stage = new Stage();
@@ -30,16 +29,12 @@ public class LevelOne{
 	double width = screenSize.getWidth();
 	double height = screenSize.getHeight();
 	
-	
 	//Note if full screen is enabled. If it is, we change the pixel value
 	
 	private Pane root = new Pane();
 	
     Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
-    
-	
-	
-    
+
     private Button play = new Button();
     
     //Directional Buttons
@@ -48,7 +43,6 @@ public class LevelOne{
     private Button directionDown = new Button(); //returns 1
     private Button directionLeft = new Button(); //returns 2
     private Button directionRight = new Button(); //returns 3
-    
     
     private int stepCount = 0;
     
@@ -61,6 +55,7 @@ public class LevelOne{
 	
 	//levelSequence
     int[] lSequence = {0 , 1 , 2 , 3 , 0 , 1};
+    int[] translateLength = {30 , 60 , 30 , 60 , 30 , 60};
     int seqLen = lSequence.length;
     int[] uSequence = new int[seqLen];
     /*
@@ -69,8 +64,6 @@ public class LevelOne{
 	 * 2 - left
 	 * 3 - right
 	 */
-    
-
 	private Parent createContent() {
 		//Set the level size
 		root.setPrefSize(900, 900);
@@ -107,8 +100,6 @@ public class LevelOne{
 		play.setLayoutX(200);
 		play.setLayoutY(0);
 		play.setText("P");
-		
-		
 		
 		root.getChildren().add(directionUp); 
 		root.getChildren().add(directionDown);
@@ -178,21 +169,24 @@ public class LevelOne{
             	for(int i = 0; i < seqLen; i++) {
             		if(lSequence[i] == uSequence[i]) {
             			
-            			int temp = uSequence[i];
+            			int temp = uSequence[i]; // sequence of translation
+            			int transTemp = translateLength[i]; //how much translation should happen
+            			
             			
             			switch(temp) {
             			//Animate the sprite *** IMPORTANT!!!
+            			//This teleports. Make the animation go step by step
             				case 0:
-            					player1.moveUp();
+            					player1.moveUp(transTemp);
             					break;
             				case 1:
-            					player1.moveDown();
+            					player1.moveDown(transTemp);
             					break;
             				case 2:
-            					player1.moveLeft();
+            					player1.moveLeft(transTemp);
             					break;
             				case 3:
-            					player1.moveRight();
+            					player1.moveRight(transTemp);
             					break;
             			}
             			
@@ -225,7 +219,6 @@ public class LevelOne{
 		stage.setScene(new Scene(createContent()));
 		stage.show();
 		
-
 	}
 	
 	//Close window properly

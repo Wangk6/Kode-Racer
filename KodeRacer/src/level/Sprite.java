@@ -32,19 +32,19 @@ public class Sprite extends Rectangle {
 	int Right() {
 		return 3;
 	}
-	
-	void moveLeft() {
-		setTranslateX(getTranslateX() - 5); //Move left 5
+	//Takes a parameter of translate so according the level the motion will happen
+	void moveLeft(int translate) {
+		setTranslateX(getTranslateX() - translate); //Move left
 	}
-	void moveRight() {
-		setTranslateX(getTranslateX() + 5); //Move left 5
+	void moveRight(int translate) {
+		setTranslateX(getTranslateX() + translate); //Move right
 	}
-	void moveUp() {
-		setTranslateY(getTranslateY() - 5); //Move left 5
+	void moveUp(int translate) {
+		setTranslateY(getTranslateY() - translate); //Move up
 		
 	}
-	void moveDown() {
-		setTranslateX(getTranslateY() + 5); //Move left 5
+	void moveDown(int translate) {
+		setTranslateX(getTranslateY() + translate); //Move down
 	}
 	
 }
