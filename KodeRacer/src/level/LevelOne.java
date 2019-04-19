@@ -8,6 +8,7 @@ import java.util.Arrays;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Parent;
@@ -59,8 +60,9 @@ public class LevelOne{
 	
 	//levelSequence
     int[] lSequence = {0 , 2 , 1 , 1 , 1 , 1};
-    int[] translateLength = {10 , 10 , 10 , 10 , 10 , 10};
+    int[] translateLength = {25 , 25 , 25 , 25 , 25 , 25};
     int seqLen = lSequence.length;
+    Transition[] translations = new Transition[seqLen];
     int[] uSequence = new int[seqLen];
     /*
 	 * 0 - up
@@ -168,12 +170,10 @@ public class LevelOne{
 		play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	
-            	final SequentialTransition st = new SequentialTransition();
-            	st.setDelay(Duration.millis(1000));
             	 
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
+            	
             	for(int i = 0; i < seqLen; i++) {
             		if(lSequence[i] == uSequence[i]) {
             			
@@ -183,16 +183,16 @@ public class LevelOne{
             			
             			switch(temp) {
             				case 0:
-            					st.getChildren().addAll(player1.moveUp(transTemp));
+            					translations[i] = player1.moveUp(transTemp);
             					break;
             				case 1:
-            					st.getChildren().addAll(player1.moveDown(transTemp));
+            					translations[i] = player1.moveDown(transTemp);
             					break;
             				case 2:
-            					st.getChildren().addAll(player1.moveLeft(transTemp));
+            					translations[i] = player1.moveLeft(transTemp);
             					break;
             				case 3:
-            					st.getChildren().addAll(player1.moveRight(transTemp));
+            					translations[i] = player1.moveRight(transTemp);
             					break;
             			}
             			
@@ -201,9 +201,29 @@ public class LevelOne{
             			System.err.println("Wrong Sequence");
             		}
             	}
-            	st.setCycleCount(Timeline.INDEFINITE);
-            	st.setAutoReverse(true);
-            	st.play();
+            	
+            	translations[0].play();
+            	translations[0].setOnFinished(e ->{
+            		translations[1].play();
+            		translations[1].setOnFinished(f ->{
+            			translations[2].play();
+            			translations[2].setOnFinished(g ->{
+            				translations[3].play();
+            				translations[3].setOnFinished(h ->{
+            					translations[4].play();
+            					translations[4].setOnFinished(i ->{
+            						translations[5].play();
+            						translations[5].setOnFinished(j ->{
+            							translations[5].stop();
+            						});
+            					});
+            				});
+            			});
+            		});
+            	});
+            	
+            	
+            	
             }
         });
 		

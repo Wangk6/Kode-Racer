@@ -48,8 +48,7 @@ public class Sprite extends Rectangle {
 		left.setNode(this); 
 		left.setByX(-translate); //left
 		left.setCycleCount(1); 
-		left.setAutoReverse(false); 
-		left.play();
+		left.setAutoReverse(false);
 		return left;
 	}
 	TranslateTransition moveRight(int translate) {
@@ -58,7 +57,6 @@ public class Sprite extends Rectangle {
 		right.setByX(translate); //right
 		right.setCycleCount(1); 
 		right.setAutoReverse(false); 
-		right.play();
 		return right;
 	}
 	TranslateTransition moveUp(int translate) {
@@ -67,7 +65,6 @@ public class Sprite extends Rectangle {
 		up.setByY(-translate); //up 
 		up.setCycleCount(1); 
 		up.setAutoReverse(false); 
-		up.play();
 		return up;
 	}
 	TranslateTransition moveDown(int translate) {
@@ -76,7 +73,6 @@ public class Sprite extends Rectangle {
 		down.setByY(translate); //down
 		down.setCycleCount(1); 
 		down.setAutoReverse(false); 
-		down.play();
 		return down;
 	}
 	
