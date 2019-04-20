@@ -38,8 +38,9 @@ public class LevelOne{
 	
 	private Pane root = new Pane();
 	
-    Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
-
+    //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
+    Sprite player1 = new Sprite(300, 300, 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
+    
     private Button play = new Button();
     
     //Directional Buttons
@@ -113,6 +114,8 @@ public class LevelOne{
 		root.getChildren().add(directionRight);
 		root.getChildren().add(play);
 		
+		
+		
 		directionUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -170,7 +173,7 @@ public class LevelOne{
 		play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-            	 
+            	
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
             	
@@ -183,15 +186,19 @@ public class LevelOne{
             			
             			switch(temp) {
             				case 0:
+            					
             					translations[i] = player1.moveUp(transTemp);
             					break;
             				case 1:
+            					
             					translations[i] = player1.moveDown(transTemp);
             					break;
             				case 2:
+            					
             					translations[i] = player1.moveLeft(transTemp);
             					break;
             				case 3:
+            					
             					translations[i] = player1.moveRight(transTemp);
             					break;
             			}

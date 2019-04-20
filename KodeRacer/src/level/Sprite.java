@@ -2,8 +2,11 @@ package level;
 
 import javafx.animation.Animation.Status;
 import javafx.animation.PauseTransition;
+import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
@@ -21,7 +24,8 @@ public class Sprite extends Rectangle {
 		this.type = type;
 		setLayoutX(x);
 		setLayoutY(y);
-		setFill(color);
+		Image s = new Image("assets/pimpmywheel.gif");
+		setFill(new ImagePattern(s));
 	}
 	/*
 	 * 0 - up
@@ -44,7 +48,7 @@ public class Sprite extends Rectangle {
 	}
 	//Takes a parameter of translate so according the level the motion will happen
 	TranslateTransition moveLeft(int translate) {
-		left.setDuration(Duration.millis(1000)); 
+		left.setDuration(Duration.millis(700)); 
 		left.setNode(this); 
 		left.setByX(-translate); //left
 		left.setCycleCount(1); 
@@ -52,7 +56,7 @@ public class Sprite extends Rectangle {
 		return left;
 	}
 	TranslateTransition moveRight(int translate) {
-		right.setDuration(Duration.millis(1000)); 
+		right.setDuration(Duration.millis(700)); 
 		right.setNode(this); 
 		right.setByX(translate); //right
 		right.setCycleCount(1); 
@@ -60,7 +64,7 @@ public class Sprite extends Rectangle {
 		return right;
 	}
 	TranslateTransition moveUp(int translate) {
-		up.setDuration(Duration.millis(1000)); 
+		up.setDuration(Duration.millis(700)); 
 		up.setNode(this); 
 		up.setByY(-translate); //up 
 		up.setCycleCount(1); 
@@ -68,12 +72,13 @@ public class Sprite extends Rectangle {
 		return up;
 	}
 	TranslateTransition moveDown(int translate) {
-		down.setDuration(Duration.millis(1000)); 
+		down.setDuration(Duration.millis(700)); 
 		down.setNode(this); 
 		down.setByY(translate); //down
 		down.setCycleCount(1); 
 		down.setAutoReverse(false); 
 		return down;
 	}
+	
 	
 }
