@@ -11,14 +11,17 @@ import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import kooda.fp.Settings;
@@ -39,9 +42,10 @@ public class LevelOne{
 	private Pane root = new Pane();
 	
     //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
-    Sprite player1 = new Sprite(300, 300, 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
+    Sprite player1 = new Sprite(0 , 200 , 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
     
     private Button play = new Button();
+    private Button clear = new Button(); //returns 3
     
     //Directional Buttons
     //Returns are for the sequence
@@ -49,6 +53,13 @@ public class LevelOne{
     private Button directionDown = new Button(); //returns 1
     private Button directionLeft = new Button(); //returns 2
     private Button directionRight = new Button(); //returns 3
+    
+    private Label displayStep_one = new Label();
+    private Label displayStep_two = new Label();
+    private Label displayStep_three = new Label();
+    private Label displayStep_four = new Label();
+    private Label displayStep_five = new Label();
+    private Label displayStep_six = new Label();
     
     private int stepCount = 0;
     
@@ -59,9 +70,9 @@ public class LevelOne{
 	 * If they match you win the level if not you restart over
 	 */
 	
-	//levelSequence
-    int[] lSequence = {0 , 2 , 1 , 1 , 1 , 1};
-    int[] translateLength = {25 , 25 , 25 , 25 , 25 , 25};
+	//levelSequence 200 , 100 , 200 , 100 , 50
+    int[] lSequence = {3 , 1 , 3 , 1 , 3};
+    int[] translateLength = {200 , 100 , 200 , 100 , 400};
     int seqLen = lSequence.length;
     Transition[] translations = new Transition[seqLen];
     int[] uSequence = new int[seqLen];
@@ -76,7 +87,111 @@ public class LevelOne{
 		root.setPrefSize(900, 900);
 		root.getChildren().add(player1);
 		
-		//Directional Buttons
+		//Level Tiles
+		//Level Tiles
+		//Level Tiles
+		//Level Tiles
+		
+		//Starting Tile
+		Rectangle startTile = new Rectangle();
+		startTile.setWidth(50);
+		startTile.setHeight(50);
+		startTile.setFill(Color.LAWNGREEN);
+		
+		startTile.setLayoutX(0); //STARTING POINT OF CHARACTER
+		startTile.setLayoutY(200); //STARTING POINT OF CHARACTER
+		//Starting Tile
+		
+		int pathX = 50;
+		int pathY = 0;
+		
+		for(int i = 0 ; i < 4; i++) {
+			Rectangle pathTile = new Rectangle();
+			pathTile.setWidth(50);
+			pathTile.setHeight(50);
+			pathTile.setLayoutX(pathX);
+			pathTile.setLayoutY(200);
+			pathTile.setFill(Color.DARKGREY);
+			pathTile.setStroke(Color.WHITESMOKE);
+			pathX += 50;
+			root.getChildren().add(pathTile);
+		}
+		
+		pathY = 250;
+		for(int i = 0; i < 2; i++) {
+			Rectangle a = new Rectangle();
+			a.setWidth(50);
+			a.setHeight(50);
+			a.setFill(Color.DARKGREY);
+			a.setStroke(Color.WHITESMOKE);
+			a.setLayoutX(200);
+			a.setLayoutY(pathY);
+			pathY += 50;
+			root.getChildren().add(a);
+		}
+		
+		pathX = 250;
+		for(int i = 0; i < 4; i++) {
+			Rectangle a = new Rectangle();
+			a.setWidth(50);
+			a.setHeight(50);
+			a.setFill(Color.DARKGREY);
+			a.setStroke(Color.WHITESMOKE);
+			a.setLayoutX(pathX);
+			a.setLayoutY(300);
+			pathX += 50;
+			root.getChildren().add(a);
+		}
+		
+		pathY = 300;
+		for(int i = 0; i < 3; i++) {
+			Rectangle a = new Rectangle();
+			a.setWidth(50);
+			a.setHeight(50);
+			a.setFill(Color.DARKGREY);
+			a.setStroke(Color.WHITESMOKE);
+			a.setLayoutX(400);
+			a.setLayoutY(pathY);
+			pathY += 50;
+			root.getChildren().add(a);
+		}
+		
+		pathX = 450;
+		for(int i = 0; i < 8; i++) {
+			Rectangle a = new Rectangle();
+			a.setWidth(50);
+			a.setHeight(50);
+			a.setFill(Color.DARKGREY);
+			a.setStroke(Color.WHITESMOKE);
+			a.setLayoutX(pathX);
+			a.setLayoutY(400);
+			pathX += 50;
+			root.getChildren().add(a);
+		}
+	
+		//Ending Tile
+		Rectangle endTile = new Rectangle();
+		endTile.setWidth(50);
+		endTile.setHeight(50);
+		endTile.setFill(Color.ORANGERED);
+		
+		endTile.setLayoutX(850); //STARTING POINT OF CHARACTER
+		endTile.setLayoutY(400); //STARTING POINT OF CHARACTER
+		//Ending Tile
+		
+		
+		root.getChildren().add(startTile);
+		root.getChildren().add(endTile);
+		
+		//Level Tiles
+		//Level Tiles
+		//Level Tiles
+		//Level Tiles
+		
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
 		
 		directionUp.setPrefWidth(50);
 		directionUp.setPrefHeight(50);
@@ -108,13 +223,69 @@ public class LevelOne{
 		play.setLayoutY(0);
 		play.setText("P");
 		
+		clear.setPrefWidth(50);
+		clear.setPrefHeight(50);
+		clear.setLayoutX(250);
+		clear.setLayoutY(0);
+		clear.setText("X");
+		
+		displayStep_one.setPrefWidth(50);
+		displayStep_one.setPrefHeight(50);
+		displayStep_one.setLayoutX(0);
+		displayStep_one.setLayoutY(50);
+		displayStep_one.setStyle("-fx-border-color: black;");
+		displayStep_one.setAlignment(Pos.CENTER);
+		
+		displayStep_two.setPrefWidth(50);
+		displayStep_two.setPrefHeight(50);
+		displayStep_two.setLayoutX(50);
+		displayStep_two.setLayoutY(50);
+		displayStep_two.setStyle("-fx-border-color: black;");
+		displayStep_two.setAlignment(Pos.CENTER);
+		
+		displayStep_three.setPrefWidth(50);
+		displayStep_three.setPrefHeight(50);
+		displayStep_three.setLayoutX(100);
+		displayStep_three.setLayoutY(50);
+		displayStep_three.setStyle("-fx-border-color: black;");
+		displayStep_three.setAlignment(Pos.CENTER);
+		
+		displayStep_four.setPrefWidth(50);
+		displayStep_four.setPrefHeight(50);
+		displayStep_four.setLayoutX(150);
+		displayStep_four.setLayoutY(50);
+		displayStep_four.setStyle("-fx-border-color: black;");
+		displayStep_four.setAlignment(Pos.CENTER);
+		
+		displayStep_five.setPrefWidth(50);
+		displayStep_five.setPrefHeight(50);
+		displayStep_five.setLayoutX(200);
+		displayStep_five.setLayoutY(50);
+		displayStep_five.setStyle("-fx-border-color: black;");
+		displayStep_five.setAlignment(Pos.CENTER);
+		
+		displayStep_six.setPrefWidth(50);
+		displayStep_six.setPrefHeight(50);
+		displayStep_six.setLayoutX(250);
+		displayStep_six.setLayoutY(50);
+		displayStep_six.setStyle("-fx-border-color: black;");
+		displayStep_six.setAlignment(Pos.CENTER);
+		
 		root.getChildren().add(directionUp); 
 		root.getChildren().add(directionDown);
 		root.getChildren().add(directionLeft);
 		root.getChildren().add(directionRight);
 		root.getChildren().add(play);
+		root.getChildren().add(clear);
 		
+		root.getChildren().add(displayStep_one);
+		root.getChildren().add(displayStep_two);
+		root.getChildren().add(displayStep_three);
+		root.getChildren().add(displayStep_four);
+		root.getChildren().add(displayStep_five);
+		root.getChildren().add(displayStep_six);
 		
+		player1.toFront();
 		
 		directionUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -122,6 +293,7 @@ public class LevelOne{
             	if(stepCount < seqLen) {
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Up();
+            		setDirectionDisplay(stepCount , uSequence[stepCount]);
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds"); //Handle this better
@@ -135,6 +307,7 @@ public class LevelOne{
             	if(stepCount < seqLen) {
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Down();
+            		setDirectionDisplay(stepCount , uSequence[stepCount]);
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -148,6 +321,7 @@ public class LevelOne{
             	if(stepCount < seqLen) {
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Left();
+            		setDirectionDisplay(stepCount , uSequence[stepCount]);
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -161,6 +335,7 @@ public class LevelOne{
             	if(stepCount < seqLen) {
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Right();
+            		setDirectionDisplay(stepCount , uSequence[stepCount]);
             		stepCount += 1;
             	}else {
             		System.err.println("Out of Bounds");
@@ -168,7 +343,16 @@ public class LevelOne{
             }
         });
 		
-		//Directional Buttons
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
+		//Directional Buttons & Buttons
+		
+		
+		//Play & Clear Buttons
+		//Play & Clear Buttons
+		//Play & Clear Buttons
+		//Play & Clear Buttons
 		
 		play.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -219,23 +403,106 @@ public class LevelOne{
             				translations[3].setOnFinished(h ->{
             					translations[4].play();
             					translations[4].setOnFinished(i ->{
-            						translations[5].play();
-            						translations[5].setOnFinished(j ->{
-            							translations[5].stop();
-            						});
+            						translations[4].stop();
             					});
             				});
             			});
             		});
             	});
             	
-            	
-            	
             }
         });
 		
+		clear.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				clearDirec();
+				System.out.println(Arrays.toString(uSequence));
+			}
+			
+		});
+		
+		//Play & Clear Buttons
+		//Play & Clear Buttons
+		//Play & Clear Buttons
+		//Play & Clear Buttons
 		
 		return root;
+	}
+	
+	public void setDirectionDisplay(int index , int direction) {
+		String dispDirec = "";
+		
+		switch(direction) {
+			case 0:
+				dispDirec = "Up";
+				break;
+			case 1:
+				dispDirec = "Down";
+				break;
+			case 2:
+				dispDirec = "Left";
+				break;
+			case 3:
+				dispDirec = "Right";
+				break;
+		}
+		
+		switch(index) {
+			case 0:
+				displayStep_one.setText(dispDirec);
+				break;
+			case 1:
+				displayStep_two.setText(dispDirec);
+				break;
+			case 2:
+				displayStep_three.setText(dispDirec);
+				break;
+			case 3:
+				displayStep_four.setText(dispDirec);
+				break;
+			case 4:
+				displayStep_five.setText(dispDirec);
+				break;
+			case 5:
+				displayStep_six.setText(dispDirec);
+				break;
+		}
+		
+	}
+	
+	public void clearDirec() {
+		
+		/*
+		 * Put back player in start position
+		 * 
+		 * 
+		 * 
+		player1.setLayoutX();
+		player1.setLayoutY();
+		*/
+		
+		stepCount = 0;
+		
+		uSequence = new int[uSequence.length];
+		translations = new Transition[translations.length];
+		
+		displayStep_one.setText(null);
+		displayStep_two.setText(null);
+		displayStep_three.setText(null);
+		displayStep_four.setText(null);
+		displayStep_five.setText(null);
+		displayStep_six.setText(null);
+		
+	}
+	
+	public void levelFinishSucces() {
+		/*
+		 * 
+		 * If the level is finished successfully
+		 * 
+		 */
 	}
 	
 	public void start() {
@@ -252,7 +519,9 @@ public class LevelOne{
 		stage.setTitle("Level One");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
-		stage.setScene(new Scene(createContent()));
+		stage.setScene(
+			new Scene(createContent())
+		);
 		stage.show();
 		
 	}

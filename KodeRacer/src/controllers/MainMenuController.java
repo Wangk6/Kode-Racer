@@ -87,15 +87,8 @@ public class MainMenuController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+    	//themeSong("/assets/Pacman.wav");
     }
-    
-    //adding sound at start of program
-    public static void main(String[] args) throws Exception {
-    	
-         themeSong("C:\\Users\\Freed\\git\\kodeRacer\\KodeRacer\\src\\assets\\Pacman.wav");
-        
-        }
     
     public static void themeSong(String filepath) {
     	
