@@ -72,7 +72,7 @@ public class LevelOne{
 	
 	//levelSequence 200 , 100 , 200 , 100 , 50
     int[] lSequence = {3 , 1 , 3 , 1 , 3};
-    int[] translateLength = {200 , 100 , 200 , 100 , 400};
+    int[] translateLength = {200 , 100 , 200 , 100 , 450};
     int seqLen = lSequence.length;
     Transition[] translations = new Transition[seqLen];
     int[] uSequence = new int[seqLen];
@@ -358,57 +358,90 @@ public class LevelOne{
             @Override
             public void handle(ActionEvent event) {
             	
+            	boolean flag = false;
+            	
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
             	
             	for(int i = 0; i < seqLen; i++) {
             		if(lSequence[i] == uSequence[i]) {
-            			
-            			int temp = uSequence[i]; // sequence of translation
-            			int transTemp = translateLength[i]; //how much translation should happen
-            			
-            			
-            			switch(temp) {
-            				case 0:
-            					
-            					translations[i] = player1.moveUp(transTemp);
-            					break;
-            				case 1:
-            					
-            					translations[i] = player1.moveDown(transTemp);
-            					break;
-            				case 2:
-            					
-            					translations[i] = player1.moveLeft(transTemp);
-            					break;
-            				case 3:
-            					
-            					translations[i] = player1.moveRight(transTemp);
-            					break;
-            			}
-            			
+            			flag = true;
             		}else {
-            			//do jitter animation
+            			flag = false;
             			System.err.println("Wrong Sequence");
             		}
             	}
             	
-            	translations[0].play();
-            	translations[0].setOnFinished(e ->{
-            		translations[1].play();
-            		translations[1].setOnFinished(f ->{
-            			translations[2].play();
-            			translations[2].setOnFinished(g ->{
-            				translations[3].play();
-            				translations[3].setOnFinished(h ->{
-            					translations[4].play();
-            					translations[4].setOnFinished(i ->{
-            						translations[4].stop();
-            					});
-            				});
-            			});
-            		});
-            	});
+            	if(flag == true) {
+            		
+            		/*
+            		SequentialTransition s = new SequentialTransition(player1);
+                	s.getChildren().add(player1.moveRight(200));
+                	s.getChildren().add(player1.moveDown(100));
+                	
+                	SequentialTransition sa = new SequentialTransition(player1);
+                	sa.getChildren().add(player1.moveRight(200));
+                	sa.getChildren().add(player1.moveDown(100));
+                	
+                	SequentialTransition sb = new SequentialTransition(player1);
+                	sb.getChildren().add(player1.moveRight(450));
+                	
+                	SequentialTransition master = new SequentialTransition(player1 , s , sa , sb);
+                	master.play();*/
+            		
+            		for(int i = 0; i < seqLen; i++) {
+                		if(lSequence[i] == uSequence[i]) {
+                			
+                			int temp = uSequence[i]; // sequence of translation
+                			int transTemp = translateLength[i]; //how much translation should happen
+                			
+                			
+                			switch(temp) {
+                				case 0:
+                					
+                					translations[i] = player1.moveUp(transTemp);
+                					break;
+                				case 1:
+                					
+                					translations[i] = player1.moveDown(transTemp);
+                					break;
+                				case 2:
+                					
+                					translations[i] = player1.moveLeft(transTemp);
+                					break;
+                				case 3:
+                					
+                					translations[i] = player1.moveRight(transTemp);
+                					break;
+                			}
+                			
+                		}else {
+                			//do jitter animation
+                			System.err.println("Wrong Sequence");
+                		}
+                	}
+                	
+                	translations[0].play();
+                	translations[0].setOnFinished(e ->{
+                		translations[1].play();
+                		translations[1].setOnFinished(f ->{
+                			translations[2].play();
+                			translations[2].setOnFinished(g ->{
+                				translations[3].play();
+                				translations[3].setOnFinished(h ->{
+                					translations[4].play();
+                					translations[4].setOnFinished(i ->{
+                						translations[5].play();
+                    					translations[5].setOnFinished(j ->{
+                    						translations[5].stop();
+                    					});
+                					});
+                				});
+                			});
+                		});
+                	});
+                	
+            	}
             	
             }
         });
