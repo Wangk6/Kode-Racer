@@ -2,12 +2,8 @@ package level;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.Arrays;
 
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,16 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import kooda.fp.Settings;
 
-public class LevelOne{
+public class LevelTwo {
 	
 	Stage stage = new Stage();
 	
@@ -71,8 +64,8 @@ public class LevelOne{
 	 */
 	
 	//levelSequence 200 , 100 , 200 , 100 , 50
-    int[] lSequence = {3 , 1 , 3 , 1 , 3};
-    int[] translateLength = {200 , 100 , 200 , 100 , 450};
+    int[] lSequence = {3 , 1 , 3 , 0 , 3};
+    int[] translateLength = {150 , 400 , 250 , 100 , 450};
     int seqLen = lSequence.length;
     Transition[] translations = new Transition[seqLen];
     int[] uSequence = new int[seqLen];
@@ -105,7 +98,7 @@ public class LevelOne{
 		int pathX = 50;
 		int pathY = 0;
 		
-		for(int i = 0 ; i < 4; i++) {
+		for(int i = 0 ; i < 2; i++) {
 			Rectangle pathTile = new Rectangle();
 			pathTile.setWidth(50);
 			pathTile.setHeight(50);
@@ -117,58 +110,60 @@ public class LevelOne{
 			root.getChildren().add(pathTile);
 		}
 		
-		pathY = 250;
-		for(int i = 0; i < 2; i++) {
-			Rectangle a = new Rectangle();
-			a.setWidth(50);
-			a.setHeight(50);
-			a.setFill(Color.DARKGREY);
-			a.setStroke(Color.WHITESMOKE);
-			a.setLayoutX(200);
-			a.setLayoutY(pathY);
+		pathY = 200;
+		for(int i = 0 ; i < 9; i++) {
+			Rectangle pathTile = new Rectangle();
+			pathTile.setWidth(50);
+			pathTile.setHeight(50);
+			pathTile.setLayoutX(150);
+			pathTile.setLayoutY(pathY);
 			pathY += 50;
-			root.getChildren().add(a);
+			pathTile.setFill(Color.DARKGREY);
+			pathTile.setStroke(Color.WHITESMOKE);
+			root.getChildren().add(pathTile);
 		}
 		
-		pathX = 250;
-		for(int i = 0; i < 4; i++) {
-			Rectangle a = new Rectangle();
-			a.setWidth(50);
-			a.setHeight(50);
-			a.setFill(Color.DARKGREY);
-			a.setStroke(Color.WHITESMOKE);
-			a.setLayoutX(pathX);
-			a.setLayoutY(300);
+		pathX = 200;
+		for(int i = 0 ; i < 4; i++) {
+			Rectangle pathTile = new Rectangle();
+			pathTile.setWidth(50);
+			pathTile.setHeight(50);
+			pathTile.setLayoutX(pathX);
+			pathTile.setLayoutY(600);
 			pathX += 50;
-			root.getChildren().add(a);
+			pathTile.setFill(Color.DARKGREY);
+			pathTile.setStroke(Color.WHITESMOKE);
+			root.getChildren().add(pathTile);
 		}
 		
-		pathY = 300;
-		for(int i = 0; i < 3; i++) {
-			Rectangle a = new Rectangle();
-			a.setWidth(50);
-			a.setHeight(50);
-			a.setFill(Color.DARKGREY);
-			a.setStroke(Color.WHITESMOKE);
-			a.setLayoutX(400);
-			a.setLayoutY(pathY);
+		pathY = 500;
+		for(int i = 0 ; i < 3; i++) {
+			Rectangle pathTile = new Rectangle();
+			pathTile.setWidth(50);
+			pathTile.setHeight(50);
+			pathTile.setLayoutX(400);
+			pathTile.setLayoutY(pathY);
 			pathY += 50;
-			root.getChildren().add(a);
+			pathTile.setFill(Color.DARKGREY);
+			pathTile.setStroke(Color.WHITESMOKE);
+			root.getChildren().add(pathTile);
 		}
 		
 		pathX = 450;
-		for(int i = 0; i < 8; i++) {
-			Rectangle a = new Rectangle();
-			a.setWidth(50);
-			a.setHeight(50);
-			a.setFill(Color.DARKGREY);
-			a.setStroke(Color.WHITESMOKE);
-			a.setLayoutX(pathX);
-			a.setLayoutY(400);
+		for(int i = 0 ; i < 8; i++) {
+			Rectangle pathTile = new Rectangle();
+			pathTile.setWidth(50);
+			pathTile.setHeight(50);
+			pathTile.setLayoutX(pathX);
+			pathTile.setLayoutY(500);
 			pathX += 50;
-			root.getChildren().add(a);
+			pathTile.setFill(Color.DARKGREY);
+			pathTile.setStroke(Color.WHITESMOKE);
+			root.getChildren().add(pathTile);
 		}
-	
+		
+		
+		
 		//Ending Tile
 		Rectangle endTile = new Rectangle();
 		endTile.setWidth(50);
@@ -176,7 +171,7 @@ public class LevelOne{
 		endTile.setFill(Color.ORANGERED);
 		
 		endTile.setLayoutX(850); //STARTING POINT OF CHARACTER
-		endTile.setLayoutY(400); //STARTING POINT OF CHARACTER
+		endTile.setLayoutY(500); //STARTING POINT OF CHARACTER
 		//Ending Tile
 		
 		
@@ -434,7 +429,6 @@ public class LevelOne{
                 						translations[5].play();
                     					translations[5].setOnFinished(j ->{
                     						translations[5].stop();
-                    						levelFinishSuccess();
                     					});
                 					});
                 				});
@@ -508,6 +502,15 @@ public class LevelOne{
 	
 	public void clearDirec() {
 		
+		/*
+		 * Put back player in start position
+		 * 
+		 * 
+		 * 
+		player1.setLayoutX();
+		player1.setLayoutY();
+		*/
+		
 		stepCount = 0;
 		
 		uSequence = new int[uSequence.length];
@@ -522,9 +525,12 @@ public class LevelOne{
 		
 	}
 	
-	public void levelFinishSuccess() {
-		LevelTwo two = new LevelTwo();
-		two.start();
+	public void levelFinishSucces() {
+		/*
+		 * 
+		 * If the level is finished successfully
+		 * 
+		 */
 	}
 	
 	public void start() {
@@ -538,7 +544,7 @@ public class LevelOne{
 		} else if (Settings.getFullScreen() == 0) {
 			stage.setResizable(false);
 		}
-		stage.setTitle("Level One");
+		stage.setTitle("Level Two");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(

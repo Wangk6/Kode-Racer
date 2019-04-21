@@ -17,10 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import level.LevelOne;
+import level.LevelTwo;
 
 public class LevelSelectController implements Initializable {
 	
 	private static LevelOne one = new LevelOne();
+	private static LevelTwo two = new LevelTwo();
     
     @FXML
     private AnchorPane levelSelect;
@@ -68,6 +70,7 @@ public class LevelSelectController implements Initializable {
             case 2:
                 //Select lvl 2
                 System.out.println("Level 2");
+                two.start();
                 break;
             case 3:
                 //Select lvl 3
