@@ -82,7 +82,6 @@ import javafx.stage.Stage;
 			
 		}
 		
-		
 
 	}
 
