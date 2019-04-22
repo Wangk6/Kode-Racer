@@ -24,10 +24,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import kooda.fp.Audio;
 import kooda.fp.Settings;
 
 public class LevelOne{
-	
 	Stage stage = new Stage();
 	
 	boolean fullScreen = false;
@@ -544,6 +544,7 @@ public class LevelOne{
 		stage.setScene(
 			new Scene(createContent())
 		);
+		Audio.player();
 		stage.show();
 		
 	}
