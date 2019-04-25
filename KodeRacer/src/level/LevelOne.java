@@ -30,13 +30,6 @@ public class LevelOne{
 	
 	Stage stage = new Stage();
 	
-	boolean fullScreen = false;
-	
-	//Get the screen size
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	double width = screenSize.getWidth();
-	double height = screenSize.getHeight();
-	
 	//Note if full screen is enabled. If it is, we change the pixel value
 	
 	private Pane root = new Pane();
@@ -431,16 +424,13 @@ public class LevelOne{
                 				translations[3].setOnFinished(h ->{
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
-                						translations[5].play();
-                    					translations[5].setOnFinished(j ->{
-                    						translations[5].stop();
+                    						translations[4].stop();
                     						levelFinishSuccess();
                     					});
                 					});
                 				});
                 			});
                 		});
-                	});
                 	
             	}
             	
@@ -528,16 +518,7 @@ public class LevelOne{
 	}
 	
 	public void start() {
-		
-		System.out.println(Settings.getFullScreen());
-		if (Settings.getFullScreen() == 1) {
-			fullScreen = true;
-			stage.setResizable(true);
-			stage.setFullScreen(true);
-			stage.setFullScreenExitHint("ESC");
-		} else if (Settings.getFullScreen() == 0) {
-			stage.setResizable(false);
-		}
+		stage.setResizable(false);
 		stage.setTitle("Level One");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));

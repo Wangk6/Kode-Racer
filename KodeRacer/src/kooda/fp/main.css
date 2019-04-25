@@ -16,7 +16,7 @@ and open the template in the editor.
 
 .moveControls{
     -fx-border-width: 1px;
-    -fx-border-color: lightgrey;
+    -fx-border-color: red;
 }
 
 Button{
@@ -25,3 +25,8 @@ Button{
     -fx-background-color: lightgrey;
 }
 
+.directionUp{
+	-fx-border-width: 1.5px;
+    -fx-border-color: black;
+    -fx-background-color: red;
+}

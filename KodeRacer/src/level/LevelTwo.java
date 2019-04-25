@@ -426,15 +426,12 @@ public class LevelTwo {
                 				translations[3].setOnFinished(h ->{
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
-                						translations[5].play();
-                    					translations[5].setOnFinished(j ->{
-                    						translations[5].stop();
+                    						translations[4].stop();
                     					});
                 					});
                 				});
                 			});
                 		});
-                	});
                 	
             	}
             	
