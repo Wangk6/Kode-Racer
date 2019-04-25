@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="levelSelect" fx:id="landing" prefHeight="600.0" prefWidth="800.0" stylesheets="@main.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
+<AnchorPane id="levelSelect" fx:id="landing" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.SettingsController">
    <children>
       <Text id="landing-title" layoutX="293.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Settings">
          <font>
@@ -14,11 +14,6 @@
          </font>
       </Text>
       <Button layoutX="300.0" layoutY="392.0" mnemonicParsing="false" onAction="#goHome" prefHeight="50.0" prefWidth="200.0" text="Done" textAlignment="CENTER">
-         <font>
-            <Font name="VCR OSD Mono" size="13.0" />
-         </font>
-      </Button>
-      <Button fx:id="mBtnFullScreen" layoutX="300.0" layoutY="159.0" mnemonicParsing="false" onAction="#fullScreen" prefHeight="50.0" prefWidth="200.0" text="Full Screen: OFF" textAlignment="CENTER">
          <font>
             <Font name="VCR OSD Mono" size="13.0" />
          </font>

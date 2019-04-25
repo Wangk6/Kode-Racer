@@ -17,13 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import level.LevelOne;
+import level.LevelThree;
 import level.LevelTwo;
 
 public class LevelSelectController implements Initializable {
 	
 	private static LevelOne one = new LevelOne();
 	private static LevelTwo two = new LevelTwo();
-    
+	private static LevelThree three = new LevelThree();
     @FXML
     private AnchorPane levelSelect;
     
@@ -75,12 +76,7 @@ public class LevelSelectController implements Initializable {
             case 3:
                 //Select lvl 3
                 System.out.println("Level 3");
-                break;
-            case 4:
-                System.out.println("Mystery Item 1");
-                break;
-            case 5:
-                System.out.println("Mystery Item 2");
+                three.start();
                 break;
             default:
                 //Select Level err
@@ -112,20 +108,6 @@ public class LevelSelectController implements Initializable {
         lvlThree.setOnAction(e -> {
             try {
                 selectLevel(3);
-            } catch (IOException ex) {
-                Logger.getLogger(LevelSelectController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        mysteryOne.setOnAction(e -> {
-            try {
-                selectLevel(4);
-            } catch (IOException ex) {
-                Logger.getLogger(LevelSelectController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        mysteryTwo.setOnAction(e -> {
-            try {
-                selectLevel(5);
             } catch (IOException ex) {
                 Logger.getLogger(LevelSelectController.class.getName()).log(Level.SEVERE, null, ex);
             }

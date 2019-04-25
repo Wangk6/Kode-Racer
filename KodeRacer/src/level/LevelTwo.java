@@ -1,10 +1,8 @@
 package level;
-
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.Arrays;
 
 import javafx.animation.Transition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -17,21 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import kooda.fp.Settings;
 
 public class LevelTwo {
 	
 	Stage stage = new Stage();
-	
-	boolean fullScreen = false;
-	
-	//Get the screen size
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	double width = screenSize.getWidth();
-	double height = screenSize.getHeight();
-	
-	//Note if full screen is enabled. If it is, we change the pixel value
-	
 	private Pane root = new Pane();
 	
     //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
@@ -523,32 +510,35 @@ public class LevelTwo {
 	}
 	
 	public void levelFinishSucces() {
-		/*
-		 * 
-		 * If the level is finished successfully
-		 * 
-		 */
+		LevelThree three = new LevelThree();
+		closeProgram();
+		three.start();
 	}
 	
 	public void start() {
-		
-		System.out.println(Settings.getFullScreen());
-		if (Settings.getFullScreen() == 1) {
-			fullScreen = true;
-			stage.setResizable(true);
-			stage.setFullScreen(true);
-			stage.setFullScreenExitHint("ESC");
-		} else if (Settings.getFullScreen() == 0) {
-			stage.setResizable(false);
-		}
-		stage.setTitle("Level Two");
+		if(startedGame == true)
+			startedGame();
+		try {
+		stage.setResizable(false);
+		stage.setTitle("Level One");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(
 			new Scene(createContent())
 		);
+		//Set started game to true
+		startedGame = true;
 		stage.show();
-		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//Keep track of if game stage was created, if so just start
+	boolean startedGame = false;
+	private void startedGame() {
+		if(startedGame == true) {
+			Platform.runLater( () -> new LevelOne() .start());
+		}
 	}
 	
 	//Close window properly
