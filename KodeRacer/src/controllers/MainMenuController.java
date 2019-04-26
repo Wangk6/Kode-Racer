@@ -23,25 +23,36 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import kooda.fp.Driver;
 import kooda.fp.Settings;
 import level.LevelOne;
 import java.io.*;
-import sun.audio.*;
 
 public class MainMenuController implements Initializable {
 	
     public static LevelOne one = new LevelOne();
     @FXML
     private AnchorPane landing;
+	String backgroundAudio = "Pacman.wav";
+    
+    Media sound = new Media(new File(backgroundAudio).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    
     
     
     @FXML
-    protected void pressPlayLevel(ActionEvent event) throws IOException {
-        System.out.println("Level One");
+    protected void pressPlayLevel(ActionEvent event) throws IOException {            	
+    	System.out.println("Level One");
         System.out.println(Settings.getFullScreen());
         one.start();
+        
+        mediaPlayer.setMute(true);
+        
+        
         //AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/LevelOne.fxml"));
         //landing.getChildren().setAll(pane);
     }
@@ -84,35 +95,19 @@ public class MainMenuController implements Initializable {
     		System.exit(1);
     	}
     }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-    }
-    
-    //adding sound at start of program
-    public static void main(String[] args) throws Exception {
-    	
-         themeSong("C:\\Users\\Freed\\git\\kodeRacer\\KodeRacer\\src\\assets\\Pacman.wav");
-        
-        }
-    
-    public static void themeSong(String filepath) {
-    	
-    	InputStream sound;
-    	try {
-    		
-    		sound = new FileInputStream(new File(filepath));
-    		AudioStream audio = new AudioStream(sound);
-    		AudioPlayer.player.start(audio);
-    		   		
-    	}
-    	catch(Exception e) {
-    		
-    		JOptionPane.showMessageDialog(null, "Error playing sound file");
-    		
-    	}
-    }
- 	
-  }
 
+	@Override
+	public void initialize(URL location, ResourceBundle resource) {
+		// TODO Auto-generated method stub
+		
+		mediaPlayer.play();		
+	    	
+		
+	}
+	
+		
+		
+}
+    
+   
+    
