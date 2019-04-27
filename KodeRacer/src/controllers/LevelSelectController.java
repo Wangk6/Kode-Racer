@@ -17,12 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import level.LevelOne;
+import level.LevelThree;
 import level.LevelTwo;
 
 public class LevelSelectController implements Initializable {
 	
 	private static LevelOne one = new LevelOne();
 	private static LevelTwo two = new LevelTwo();
+	private static LevelThree three = new LevelThree();
     
     @FXML
     private AnchorPane levelSelect;
