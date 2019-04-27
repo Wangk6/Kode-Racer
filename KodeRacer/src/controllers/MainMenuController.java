@@ -40,10 +40,7 @@ public class MainMenuController implements Initializable {
     @FXML
     protected void pressPlayLevel(ActionEvent event) throws IOException {
         System.out.println("Level One");
-        System.out.println(Settings.getFullScreen());
         one.start();
-        //AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/LevelOne.fxml"));
-        //landing.getChildren().setAll(pane);
     }
     
     @FXML

@@ -1,14 +1,8 @@
 package level;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.util.ArrayList;
 import java.util.Arrays;
-
-import javafx.animation.PauseTransition;
-import javafx.animation.SequentialTransition;
-import javafx.animation.Timeline;
 import javafx.animation.Transition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -17,27 +11,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import kooda.fp.Settings;
 
 public class LevelOne{
 	
 	Stage stage = new Stage();
-	
-	boolean fullScreen = false;
-	
-	//Get the screen size
-	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	double width = screenSize.getWidth();
-	double height = screenSize.getHeight();
-	
-	//Note if full screen is enabled. If it is, we change the pixel value
 	
 	private Pane root = new Pane();
 	
@@ -72,6 +53,7 @@ public class LevelOne{
 	
 	//levelSequence 200 , 100 , 200 , 100 , 50
     int[] lSequence = {3 , 1 , 3 , 1 , 3};
+    //Movement of the player
     int[] translateLength = {200 , 100 , 200 , 100 , 450};
     int seqLen = lSequence.length;
     Transition[] translations = new Transition[seqLen];
@@ -431,16 +413,13 @@ public class LevelOne{
                 				translations[3].setOnFinished(h ->{
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
-                						translations[5].play();
-                    					translations[5].setOnFinished(j ->{
-                    						translations[5].stop();
+                    						translations[4].stop();
                     						levelFinishSuccess();
                     					});
                 					});
                 				});
                 			});
                 		});
-                	});
                 	
             	}
             	
@@ -524,28 +503,34 @@ public class LevelOne{
 	
 	public void levelFinishSuccess() {
 		LevelTwo two = new LevelTwo();
+		closeProgram();
 		two.start();
 	}
 	
 	public void start() {
-		
-		System.out.println(Settings.getFullScreen());
-		if (Settings.getFullScreen() == 1) {
-			fullScreen = true;
-			stage.setResizable(true);
-			stage.setFullScreen(true);
-			stage.setFullScreenExitHint("ESC");
-		} else if (Settings.getFullScreen() == 0) {
-			stage.setResizable(false);
-		}
+		if(startedGame == true)
+			startedGame();
+		try {
+		stage.setResizable(false);
 		stage.setTitle("Level One");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(
 			new Scene(createContent())
 		);
+		//Set started game to true
+		startedGame = true;
 		stage.show();
-		
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	//Keep track of if game stage was created, if so just start
+	boolean startedGame = false;
+	private void startedGame() {
+		if(startedGame == true) {
+			Platform.runLater( () -> new LevelOne() .start());
+		}
 	}
 	
 	//Close window properly
