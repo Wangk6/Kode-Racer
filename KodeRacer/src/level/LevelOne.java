@@ -2,7 +2,13 @@ package level;
 
 import java.util.Arrays;
 import javafx.animation.Transition;
+import javafx.animation.Animation.Status;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,10 +17,15 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class LevelOne{
 	//Keep track of if game stage was created, if so just start
@@ -25,6 +36,7 @@ public class LevelOne{
 	
     //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
     Sprite player1 = new Sprite(0 , 200 , 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
+    Image coin = new Image("assets/coin.jpg");
     
     private Button play = new Button();
     private Button clear = new Button(); //returns 3
@@ -43,7 +55,11 @@ public class LevelOne{
     private Label displayStep_five = new Label();
     private Label displayStep_six = new Label();
     
+    private Rectangle coinImage = new Rectangle();
+    private Label coinCount = new Label();
+    
     private int stepCount = 0;
+    private int totalCoin = 0;
     
     /*
 	 * We will be using two arrays to keep track of our user movements
@@ -88,7 +104,7 @@ public class LevelOne{
 		int pathX = 50;
 		int pathY = 0;
 		
-		for(int i = 0 ; i < 4; i++) {
+		for(int i = 0 ; i < 3; i++) {
 			Rectangle pathTile = new Rectangle();
 			pathTile.setWidth(50);
 			pathTile.setHeight(50);
@@ -99,6 +115,15 @@ public class LevelOne{
 			pathX += 50;
 			root.getChildren().add(pathTile);
 		}
+		
+		Rectangle pathTileCoin = new Rectangle();
+		pathTileCoin.setWidth(50);
+		pathTileCoin.setHeight(50);
+		pathTileCoin.setLayoutX(200);
+		pathTileCoin.setLayoutY(200);
+		pathTileCoin.setFill(new ImagePattern(coin));
+		pathTileCoin.setStroke(Color.WHITESMOKE);
+		root.getChildren().add(pathTileCoin);
 		
 		pathY = 250;
 		for(int i = 0; i < 2; i++) {
@@ -113,8 +138,8 @@ public class LevelOne{
 			root.getChildren().add(a);
 		}
 		
-		pathX = 250;
-		for(int i = 0; i < 4; i++) {
+		pathX = 300;
+		for(int i = 0; i < 3; i++) {
 			Rectangle a = new Rectangle();
 			a.setWidth(50);
 			a.setHeight(50);
@@ -125,6 +150,15 @@ public class LevelOne{
 			pathX += 50;
 			root.getChildren().add(a);
 		}
+		
+		Rectangle pathTileCoin2 = new Rectangle();
+		pathTileCoin2.setWidth(50);
+		pathTileCoin2.setHeight(50);
+		pathTileCoin2.setLayoutX(250);
+		pathTileCoin2.setLayoutY(300);
+		pathTileCoin2.setFill(new ImagePattern(coin));
+		pathTileCoin2.setStroke(Color.WHITESMOKE);
+		root.getChildren().add(pathTileCoin2);
 		
 		pathY = 300;
 		for(int i = 0; i < 3; i++) {
@@ -254,6 +288,20 @@ public class LevelOne{
 		displayStep_six.setStyle("-fx-border-color: black;");
 		displayStep_six.setAlignment(Pos.CENTER);
 		
+		coinImage.setWidth(50);
+		coinImage.setHeight(50);
+		coinImage.setLayoutX(800);
+		coinImage.setLayoutY(0);
+		coinImage.setFill(new ImagePattern(coin));
+		
+		coinCount.setPrefWidth(50);
+		coinCount.setPrefHeight(50);
+		coinCount.setLayoutX(850);
+		coinCount.setLayoutY(0);
+		coinCount.setStyle("-fx-border-color: black;");
+		coinCount.setAlignment(Pos.CENTER);
+		coinCount.setText(Integer.toString(totalCoin));
+		
 		root.getChildren().add(directionUp); 
 		root.getChildren().add(directionDown);
 		root.getChildren().add(directionLeft);
@@ -267,6 +315,9 @@ public class LevelOne{
 		root.getChildren().add(displayStep_four);
 		root.getChildren().add(displayStep_five);
 		root.getChildren().add(displayStep_six);
+		
+		root.getChildren().add(coinImage);
+		root.getChildren().add(coinCount);
 		
 		player1.toFront();
 		
@@ -398,12 +449,60 @@ public class LevelOne{
                 	}
                 	player1.setRotate(90);
                 	translations[0].play();
+                	
+                	//USING TASKS TO "EAT COIN"
+                	
+                	Task<Void> eatCoin = new Task<Void>() {
+                        @Override
+                        protected Void call() throws Exception {
+                            try {
+                                Thread.sleep(600);
+                            } catch (InterruptedException e) {
+                            }
+                            return null;
+                        }
+                    };
+                    
+                    eatCoin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                        @Override
+                        public void handle(WorkerStateEvent event) {
+                        	totalCoin++;
+                        	coinCount.setText(Integer.toString(totalCoin));
+                            pathTileCoin.setFill(Color.DARKGREY);
+                        }
+                    });
+                    
+                    new Thread(eatCoin).start();
+                    
                 	translations[0].setOnFinished(e ->{
                 		player1.setRotate(180);
                 		translations[1].play();
                 		translations[1].setOnFinished(f ->{
                 			player1.setRotate(90);
                 			translations[2].play();
+                			
+                			Task<Void> eatCoin2 = new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    try {
+                                        Thread.sleep(200);
+                                    } catch (InterruptedException e) {
+                                    }
+                                    return null;
+                                }
+                            };
+                            
+                            eatCoin2.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                                @Override
+                                public void handle(WorkerStateEvent event) {
+                                	totalCoin++;
+                                	coinCount.setText(Integer.toString(totalCoin));
+                                    pathTileCoin2.setFill(Color.DARKGREY);
+                                }
+                            });
+                            
+                            new Thread(eatCoin2).start();
+                			
                 			translations[2].setOnFinished(g ->{
                 				player1.setRotate(180);
                 				translations[3].play();
@@ -509,9 +608,42 @@ public class LevelOne{
 	}
 	
 	public void levelFinishSuccess() {
-		LevelTwo two = new LevelTwo();
-		closeProgram();
-		two.start();
+		
+		Label win = new Label();
+		win.setPrefHeight(450);
+		win.setPrefWidth(450);
+		win.setLayoutX(225);
+		win.setLayoutY(225);
+		win.setText("You Won!!!");
+		win.setAlignment(Pos.BASELINE_CENTER);
+		win.setFont(Font.font(25));
+		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
+		win.toFront();
+		
+		root.getChildren().add(win);
+		
+		Task<Void> displayWin = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        
+        displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+            	LevelTwo two = new LevelTwo();
+        		closeProgram();
+        		two.start();
+            }
+        });
+        
+        new Thread(displayWin).start();
+        
 	}
 	
 	public void start() {
