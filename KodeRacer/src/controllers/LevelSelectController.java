@@ -25,10 +25,7 @@ public class LevelSelectController implements Initializable {
 	private static LevelOne one = new LevelOne();
 	private static LevelTwo two = new LevelTwo();
 	private static LevelThree three = new LevelThree();
-<<<<<<< HEAD
-    
-=======
->>>>>>> branch 'master' of https://github.com/qbillah/kodeRacer.git
+
     @FXML
     private AnchorPane levelSelect;
     
