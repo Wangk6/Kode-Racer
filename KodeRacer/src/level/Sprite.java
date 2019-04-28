@@ -18,9 +18,11 @@ public class Sprite extends Rectangle {
 		this.type = type;
 		setLayoutX(x);
 		setLayoutY(y);
-		Image s = new Image("assets/pimpmywheel.gif");
+		Image s = new Image("assets/Audi.png");
 		setFill(new ImagePattern(s));
 	}
+
+
 	/*
 	 * 0 - up
 	 * 1 - down

@@ -17,7 +17,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class LevelOne{
-	
+	//Keep track of if game stage was created, if so just start
+	boolean startedGame = false;
 	Stage stage = new Stage();
 	
 	private Pane root = new Pane();
@@ -273,6 +274,8 @@ public class LevelOne{
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(0);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Up();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -287,6 +290,8 @@ public class LevelOne{
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(180);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Down();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -301,6 +306,8 @@ public class LevelOne{
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(270);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Left();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -315,6 +322,8 @@ public class LevelOne{
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(90);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Right();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -344,7 +353,7 @@ public class LevelOne{
             	
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
-            	
+				if(stepCount >= seqLen) {
             	for(int i = 0; i < seqLen; i++) {
             		if(lSequence[i] == uSequence[i]) {
             			flag = true;
@@ -355,22 +364,7 @@ public class LevelOne{
             	}
             	
             	if(flag == true) {
-            		
-            		/*
-            		SequentialTransition s = new SequentialTransition(player1);
-                	s.getChildren().add(player1.moveRight(200));
-                	s.getChildren().add(player1.moveDown(100));
-                	
-                	SequentialTransition sa = new SequentialTransition(player1);
-                	sa.getChildren().add(player1.moveRight(200));
-                	sa.getChildren().add(player1.moveDown(100));
-                	
-                	SequentialTransition sb = new SequentialTransition(player1);
-                	sb.getChildren().add(player1.moveRight(450));
-                	
-                	SequentialTransition master = new SequentialTransition(player1 , s , sa , sb);
-                	master.play();*/
-            		
+            	
             		for(int i = 0; i < seqLen; i++) {
                 		if(lSequence[i] == uSequence[i]) {
                 			
@@ -402,15 +396,19 @@ public class LevelOne{
                 			System.err.println("Wrong Sequence");
                 		}
                 	}
-                	
+                	player1.setRotate(90);
                 	translations[0].play();
                 	translations[0].setOnFinished(e ->{
+                		player1.setRotate(180);
                 		translations[1].play();
                 		translations[1].setOnFinished(f ->{
+                			player1.setRotate(90);
                 			translations[2].play();
                 			translations[2].setOnFinished(g ->{
+                				player1.setRotate(180);
                 				translations[3].play();
                 				translations[3].setOnFinished(h ->{
+                					player1.setRotate(90);
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
                     						translations[4].stop();
@@ -424,6 +422,10 @@ public class LevelOne{
             	}
             	
             }
+			else {
+			System.out.println("Finish the sequence");
+		}
+		}
         });
 		
 		clear.setOnAction(new EventHandler<ActionEvent>() {
@@ -487,6 +489,11 @@ public class LevelOne{
 	
 	public void clearDirec() {
 		
+		if (stepCount>= seqLen) {
+		player1.setX(0);
+		player1.setY(0);
+		player1.toFront();
+		}
 		stepCount = 0;
 		
 		uSequence = new int[uSequence.length];
@@ -511,6 +518,7 @@ public class LevelOne{
 		if(startedGame == true)
 			startedGame();
 		try {
+		//Set started game to true
 		stage.setResizable(false);
 		stage.setTitle("Level One");
 		stage.setOnCloseRequest(e -> closeProgram());
@@ -518,15 +526,12 @@ public class LevelOne{
 		stage.setScene(
 			new Scene(createContent())
 		);
-		//Set started game to true
 		startedGame = true;
 		stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
-	//Keep track of if game stage was created, if so just start
-	boolean startedGame = false;
 	private void startedGame() {
 		if(startedGame == true) {
 			Platform.runLater( () -> new LevelOne() .start());

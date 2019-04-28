@@ -273,6 +273,8 @@ public class LevelTwo {
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(0);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Up();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -287,6 +289,8 @@ public class LevelTwo {
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(180);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Down();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -301,6 +305,8 @@ public class LevelTwo {
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(270);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Left();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -315,6 +321,8 @@ public class LevelTwo {
             @Override
             public void handle(ActionEvent event) {
             	if(stepCount < seqLen) {
+            		if(stepCount==0)
+            		player1.setRotate(90);
             		//Add sequence to user array
             		uSequence[stepCount] = player1.Right();
             		setDirectionDisplay(stepCount , uSequence[stepCount]);
@@ -344,7 +352,7 @@ public class LevelTwo {
             	
             	System.out.println("Level: " + Arrays.toString(lSequence));
             	System.out.println("User: " + Arrays.toString(uSequence));
-            	
+				if(stepCount >= seqLen) {
             	for(int i = 0; i < seqLen; i++) {
             		if(lSequence[i] == uSequence[i]) {
             			flag = true;
@@ -355,21 +363,6 @@ public class LevelTwo {
             	}
             	
             	if(flag == true) {
-            		
-            		/*
-            		SequentialTransition s = new SequentialTransition(player1);
-                	s.getChildren().add(player1.moveRight(200));
-                	s.getChildren().add(player1.moveDown(100));
-                	
-                	SequentialTransition sa = new SequentialTransition(player1);
-                	sa.getChildren().add(player1.moveRight(200));
-                	sa.getChildren().add(player1.moveDown(100));
-                	
-                	SequentialTransition sb = new SequentialTransition(player1);
-                	sb.getChildren().add(player1.moveRight(450));
-                	
-                	SequentialTransition master = new SequentialTransition(player1 , s , sa , sb);
-                	master.play();*/
             		
             		for(int i = 0; i < seqLen; i++) {
                 		if(lSequence[i] == uSequence[i]) {
@@ -402,15 +395,19 @@ public class LevelTwo {
                 			System.err.println("Wrong Sequence");
                 		}
                 	}
-                	
+                	player1.setRotate(90);
                 	translations[0].play();
                 	translations[0].setOnFinished(e ->{
+                		player1.setRotate(180);
                 		translations[1].play();
                 		translations[1].setOnFinished(f ->{
+                			player1.setRotate(90);
                 			translations[2].play();
                 			translations[2].setOnFinished(g ->{
+                				player1.setRotate(0);
                 				translations[3].play();
                 				translations[3].setOnFinished(h ->{
+                					player1.setRotate(90);
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
                     						translations[4].stop();
@@ -423,6 +420,10 @@ public class LevelTwo {
             	}
             	
             }
+				else {
+				System.out.println("Finish the sequence");
+			}
+			}
         });
 		
 		clear.setOnAction(new EventHandler<ActionEvent>() {
@@ -485,16 +486,12 @@ public class LevelTwo {
 	}
 	
 	public void clearDirec() {
-		
-		/*
-		 * Put back player in start position
-		 * 
-		 * 
-		 * 
-		player1.setLayoutX();
-		player1.setLayoutY();
-		*/
-		
+
+		if (stepCount>= seqLen) {
+		player1.setX(0);
+		player1.setY(0);
+		player1.toFront();
+		}
 		stepCount = 0;
 		
 		uSequence = new int[uSequence.length];
