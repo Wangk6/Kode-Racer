@@ -643,7 +643,6 @@ public class LevelOne{
         });
         
         new Thread(displayWin).start();
-        
 	}
 	
 	public void start() {
