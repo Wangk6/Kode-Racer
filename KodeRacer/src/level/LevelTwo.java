@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 import javafx.animation.Transition;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -11,9 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class LevelTwo {
@@ -23,6 +29,7 @@ public class LevelTwo {
 	
     //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
     Sprite player1 = new Sprite(0 , 200 , 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
+    Image coin = new Image("assets/coin.jpg");
     
     private Button play = new Button();
     private Button clear = new Button(); //returns 3
@@ -41,7 +48,11 @@ public class LevelTwo {
     private Label displayStep_five = new Label();
     private Label displayStep_six = new Label();
     
+    private Rectangle coinImage = new Rectangle();
+    private Label coinCount = new Label();
+    
     private int stepCount = 0;
+    private int totalCoin = 0;
     
     /*
 	 * We will be using two arrays to keep track of our user movements
@@ -110,8 +121,8 @@ public class LevelTwo {
 			root.getChildren().add(pathTile);
 		}
 		
-		pathX = 200;
-		for(int i = 0 ; i < 4; i++) {
+		pathX = 250;
+		for(int i = 0 ; i < 3; i++) {
 			Rectangle pathTile = new Rectangle();
 			pathTile.setWidth(50);
 			pathTile.setHeight(50);
@@ -122,6 +133,15 @@ public class LevelTwo {
 			pathTile.setStroke(Color.WHITESMOKE);
 			root.getChildren().add(pathTile);
 		}
+		
+		Rectangle pathTileCoin = new Rectangle();
+		pathTileCoin.setWidth(50);
+		pathTileCoin.setHeight(50);
+		pathTileCoin.setLayoutX(200);
+		pathTileCoin.setLayoutY(600);
+		pathTileCoin.setFill(new ImagePattern(coin));
+		pathTileCoin.setStroke(Color.WHITESMOKE);
+		root.getChildren().add(pathTileCoin);
 		
 		pathY = 500;
 		for(int i = 0 ; i < 3; i++) {
@@ -253,6 +273,20 @@ public class LevelTwo {
 		displayStep_six.setStyle("-fx-border-color: black;");
 		displayStep_six.setAlignment(Pos.CENTER);
 		
+		coinImage.setWidth(50);
+		coinImage.setHeight(50);
+		coinImage.setLayoutX(800);
+		coinImage.setLayoutY(0);
+		coinImage.setFill(new ImagePattern(coin));
+		
+		coinCount.setPrefWidth(50);
+		coinCount.setPrefHeight(50);
+		coinCount.setLayoutX(850);
+		coinCount.setLayoutY(0);
+		coinCount.setStyle("-fx-border-color: black;");
+		coinCount.setAlignment(Pos.CENTER);
+		coinCount.setText(Integer.toString(totalCoin));
+		
 		root.getChildren().add(directionUp); 
 		root.getChildren().add(directionDown);
 		root.getChildren().add(directionLeft);
@@ -266,6 +300,9 @@ public class LevelTwo {
 		root.getChildren().add(displayStep_four);
 		root.getChildren().add(displayStep_five);
 		root.getChildren().add(displayStep_six);
+		
+		root.getChildren().add(coinImage);
+		root.getChildren().add(coinCount);
 		
 		player1.toFront();
 		
@@ -403,6 +440,29 @@ public class LevelTwo {
                 		translations[1].setOnFinished(f ->{
                 			player1.setRotate(90);
                 			translations[2].play();
+                			
+                			Task<Void> eatCoin = new Task<Void>() {
+                                @Override
+                                protected Void call() throws Exception {
+                                    try {
+                                        Thread.sleep(200);
+                                    } catch (InterruptedException e) {
+                                    }
+                                    return null;
+                                }
+                            };
+                            
+                            eatCoin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+                                @Override
+                                public void handle(WorkerStateEvent event) {
+                                	totalCoin++;
+                                	coinCount.setText(Integer.toString(totalCoin));
+                                    pathTileCoin.setFill(Color.DARKGREY);
+                                }
+                            });
+                            
+                            new Thread(eatCoin).start();
+                			
                 			translations[2].setOnFinished(g ->{
                 				player1.setRotate(0);
                 				translations[3].play();
@@ -411,6 +471,7 @@ public class LevelTwo {
                 					translations[4].play();
                 					translations[4].setOnFinished(i ->{
                     						translations[4].stop();
+                    						levelFinishSuccess();
                     					});
                 					});
                 				});
@@ -506,10 +567,41 @@ public class LevelTwo {
 		
 	}
 	
-	public void levelFinishSucces() {
-		LevelThree three = new LevelThree();
-		closeProgram();
-		three.start();
+	public void levelFinishSuccess() {
+		Label win = new Label();
+		win.setPrefHeight(450);
+		win.setPrefWidth(450);
+		win.setLayoutX(225);
+		win.setLayoutY(225);
+		win.setText("You Won!!!");
+		win.setAlignment(Pos.BASELINE_CENTER);
+		win.setFont(Font.font(25));
+		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
+		win.toFront();
+		
+		root.getChildren().add(win);
+		
+		Task<Void> displayWin = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                }
+                return null;
+            }
+        };
+        
+        displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+            @Override
+            public void handle(WorkerStateEvent event) {
+            	LevelThree three = new LevelThree();
+        		closeProgram();
+        		three.start();
+            }
+        });
+        
+        new Thread(displayWin).start();
 	}
 	
 	public void start() {
@@ -517,7 +609,7 @@ public class LevelTwo {
 			startedGame();
 		try {
 		stage.setResizable(false);
-		stage.setTitle("Level One");
+		stage.setTitle("Level Two");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(
