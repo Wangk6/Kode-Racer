@@ -26,13 +26,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import kooda.fp.Driver;
 import kooda.fp.Settings;
-import level.LevelOne;
+import level.LevelOneEpisodeThree;
 import java.io.*;
 import sun.audio.*;
 
 public class MainMenuController implements Initializable {
 	
-    public static LevelOne one = new LevelOne();
+    public static LevelOneEpisodeThree one = new LevelOneEpisodeThree();
     @FXML
     private AnchorPane landing;
     

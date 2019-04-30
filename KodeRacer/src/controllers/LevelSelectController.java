@@ -16,15 +16,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import level.LevelOne;
-import level.LevelThree;
-import level.LevelTwo;
+import level.LevelOneEpisodeOne;
+import level.LevelOneEpisodeThree;
+import level.LevelThreeEpisodeOne;
+import level.LevelTwoEpisodeOne;
 
 public class LevelSelectController implements Initializable {
 	
-	private static LevelOne one = new LevelOne();
-	private static LevelTwo two = new LevelTwo();
-	private static LevelThree three = new LevelThree();
+	private static LevelOneEpisodeOne one = new LevelOneEpisodeOne();
+	private static LevelTwoEpisodeOne two = new LevelTwoEpisodeOne();
+	private static LevelThreeEpisodeOne three = new LevelThreeEpisodeOne();
 
     @FXML
     private AnchorPane levelSelect;

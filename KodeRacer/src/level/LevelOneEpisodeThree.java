@@ -27,7 +27,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class LevelOne{
+public class LevelOneEpisodeThree{
 	//Keep track of if game stage was created, if so just start
 	boolean startedGame = false;
 	Stage stage = new Stage();
@@ -445,6 +445,7 @@ public class LevelOne{
                 		}else {
                 			//do jitter animation
                 			System.err.println("Wrong Sequence");
+                			wrongSequence();
                 		}
                 	}
                 	player1.setRotate(90);
@@ -523,6 +524,7 @@ public class LevelOne{
             }
 			else {
 			System.out.println("Finish the sequence");
+			wrongSequence();
 		}
 		}
         });
@@ -606,7 +608,35 @@ public class LevelOne{
 		displayStep_six.setText(null);
 		
 	}
-	
+	public void wrongSequence() {
+
+		Label wrong = new Label();
+		wrong.setPrefHeight(50);
+		wrong.setPrefWidth(300);
+		wrong.setLayoutX(0);
+		wrong.setLayoutY(100);
+		wrong.setText("Wrong sequence try again");
+		wrong.setAlignment(Pos.BASELINE_CENTER);
+		wrong.setFont(Font.font(20));
+		wrong.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+		wrong.toFront();
+
+		root.getChildren().add(wrong);
+
+		Task<Void> wrongSequence = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				try {
+					Thread.sleep(10);;
+				} catch (InterruptedException e) {
+				}
+				return null;
+			}
+		};
+
+		new Thread(wrongSequence).start();
+	}
+
 	public void levelFinishSuccess() {
 		
 		Label win = new Label();
@@ -614,7 +644,7 @@ public class LevelOne{
 		win.setPrefWidth(450);
 		win.setLayoutX(225);
 		win.setLayoutY(225);
-		win.setText("You Won!!!");
+		win.setText("Level Complete. \nProceeding to Level Two");
 		win.setAlignment(Pos.BASELINE_CENTER);
 		win.setFont(Font.font(25));
 		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
@@ -633,14 +663,14 @@ public class LevelOne{
             }
         };
         
-        displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-            @Override
-            public void handle(WorkerStateEvent event) {
-            	LevelTwo two = new LevelTwo();
-        		closeProgram();
-        		two.start();
-            }
-        });
+		displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+			@Override
+			public void handle(WorkerStateEvent event) {
+				LevelTwoEpisodeTwo three = new LevelTwoEpisodeTwo();
+				closeProgram();
+				three.start();
+			}
+		});
         
         new Thread(displayWin).start();
 	}
@@ -665,7 +695,7 @@ public class LevelOne{
 	}
 	private void startedGame() {
 		if(startedGame == true) {
-			Platform.runLater( () -> new LevelOne() .start());
+			Platform.runLater( () -> new LevelOneEpisodeThree() .start());
 		}
 	}
 	

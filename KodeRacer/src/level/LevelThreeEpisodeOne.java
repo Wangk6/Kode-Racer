@@ -23,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class LevelThree {
+public class LevelThreeEpisodeOne {
 	
 	Stage stage = new Stage();
 	private Pane root = new Pane();
@@ -512,6 +512,7 @@ public class LevelThree {
                 		}else {
                 			//do jitter animation
                 			System.err.println("Wrong Sequence");
+                			wrongSequence();
                 		}
                 	}
             		
@@ -668,6 +669,7 @@ public class LevelThree {
             		
             	}else{
             		System.out.println("Finish the sequence");
+            		wrongSequence();
             	}
 			}
         });
@@ -752,13 +754,42 @@ public class LevelThree {
 		
 	}
 	
+	public void wrongSequence() {
+
+		Label wrong = new Label();
+		wrong.setPrefHeight(50);
+		wrong.setPrefWidth(300);
+		wrong.setLayoutX(0);
+		wrong.setLayoutY(100);
+		wrong.setText("Wrong sequence try again");
+		wrong.setAlignment(Pos.BASELINE_CENTER);
+		wrong.setFont(Font.font(20));
+		wrong.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+		wrong.toFront();
+
+		root.getChildren().add(wrong);
+
+		Task<Void> wrongSequence = new Task<Void>() {
+			@Override
+			protected Void call() throws Exception {
+				try {
+					Thread.sleep(10);;
+				} catch (InterruptedException e) {
+				}
+				return null;
+			}
+		};
+
+		new Thread(wrongSequence).start();
+	}
+	
 	public void levelFinishSuccess() {
 		Label win = new Label();
 		win.setPrefHeight(450);
 		win.setPrefWidth(450);
 		win.setLayoutX(225);
 		win.setLayoutY(225);
-		win.setText("You Won!!!");
+		win.setText("Proceed to Episode Two");
 		win.setAlignment(Pos.BASELINE_CENTER);
 		win.setFont(Font.font(25));
 		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
@@ -780,7 +811,8 @@ public class LevelThree {
         displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-        		closeProgram();
+				LevelThreeEpisodeTwo two = new LevelThreeEpisodeTwo();
+				two.start();
             }
         });
         
@@ -809,7 +841,7 @@ public class LevelThree {
 	boolean startedGame = false;
 	private void startedGame() {
 		if(startedGame == true) {
-			Platform.runLater( () -> new LevelOne() .start());
+			Platform.runLater( () -> new LevelThreeEpisodeOne() .start());
 		}
 	}
 	
