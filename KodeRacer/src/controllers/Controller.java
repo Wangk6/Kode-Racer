@@ -7,10 +7,6 @@ package controllers;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author qbillah
- */
 public class Controller {
     
     /*
