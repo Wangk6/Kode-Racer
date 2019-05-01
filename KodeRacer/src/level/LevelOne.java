@@ -17,8 +17,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -32,11 +36,19 @@ public class LevelOne{
 	boolean startedGame = false;
 	Stage stage = new Stage();
 	
+	String path = "assets/Map1.jpg";
+	
 	private Pane root = new Pane();
 	
     //Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random", Color.RED); //Keep the W & H to 25, because we're moving at 5's
     Sprite player1 = new Sprite(0 , 200 , 50, 50, "random", Color.TRANSPARENT); //Keep the W & H to 25, because we're moving at 5's
-    Image coin = new Image("assets/coin.jpg");
+    Image coin = new Image("assets/coin.png");
+   // Image image = new Image(path, BackgroundSize.AUTO, BackgroundSize.AUTO, startedGame, startedGame);
+   // ImageView view = new ImageView(image);
+    
+    //BackgroundImage bgImg = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, null);
+   
+   
     
     private Button play = new Button();
     private Button clear = new Button(); //returns 3
@@ -54,6 +66,8 @@ public class LevelOne{
     private Label displayStep_four = new Label();
     private Label displayStep_five = new Label();
     private Label displayStep_six = new Label();
+    
+    
     
     private Rectangle coinImage = new Rectangle();
     private Label coinCount = new Label();
@@ -83,8 +97,9 @@ public class LevelOne{
 	 */
 	private Parent createContent() {
 		//Set the level size
-		root.setPrefSize(900, 900);
-		root.getChildren().add(player1);
+		root.setPrefSize(900, 650);
+		root.getChildren().addAll(player1);
+		
 		
 		//Level Tiles
 		//Level Tiles
@@ -96,9 +111,10 @@ public class LevelOne{
 		startTile.setWidth(50);
 		startTile.setHeight(50);
 		startTile.setFill(Color.LAWNGREEN);
+		startTile.setOpacity(0.3);
 		
 		startTile.setLayoutX(0); //STARTING POINT OF CHARACTER
-		startTile.setLayoutY(200); //STARTING POINT OF CHARACTER
+		startTile.setLayoutY(205); //STARTING POINT OF CHARACTER
 		//Starting Tile
 		
 		int pathX = 50;
@@ -114,16 +130,19 @@ public class LevelOne{
 			pathTile.setStroke(Color.WHITESMOKE);
 			pathX += 50;
 			root.getChildren().add(pathTile);
+			pathTile.setOpacity(0);
+			
 		}
 		
 		Rectangle pathTileCoin = new Rectangle();
 		pathTileCoin.setWidth(50);
 		pathTileCoin.setHeight(50);
 		pathTileCoin.setLayoutX(200);
-		pathTileCoin.setLayoutY(200);
+		pathTileCoin.setLayoutY(220);
 		pathTileCoin.setFill(new ImagePattern(coin));
-		pathTileCoin.setStroke(Color.WHITESMOKE);
+		//pathTileCoin.setStroke(Color.BLACK);removed boarder around coin
 		root.getChildren().add(pathTileCoin);
+	   
 		
 		pathY = 250;
 		for(int i = 0; i < 2; i++) {
@@ -136,6 +155,7 @@ public class LevelOne{
 			a.setLayoutY(pathY);
 			pathY += 50;
 			root.getChildren().add(a);
+			a.setOpacity(0);
 		}
 		
 		pathX = 300;
@@ -149,6 +169,7 @@ public class LevelOne{
 			a.setLayoutY(300);
 			pathX += 50;
 			root.getChildren().add(a);
+			a.setOpacity(0);
 		}
 		
 		Rectangle pathTileCoin2 = new Rectangle();
@@ -157,8 +178,9 @@ public class LevelOne{
 		pathTileCoin2.setLayoutX(250);
 		pathTileCoin2.setLayoutY(300);
 		pathTileCoin2.setFill(new ImagePattern(coin));
-		pathTileCoin2.setStroke(Color.WHITESMOKE);
+		//pathTileCoin2.setStroke(Color.WHITESMOKE);
 		root.getChildren().add(pathTileCoin2);
+		
 		
 		pathY = 300;
 		for(int i = 0; i < 3; i++) {
@@ -171,6 +193,7 @@ public class LevelOne{
 			a.setLayoutY(pathY);
 			pathY += 50;
 			root.getChildren().add(a);
+			a.setOpacity(0);
 		}
 		
 		pathX = 450;
@@ -184,13 +207,16 @@ public class LevelOne{
 			a.setLayoutY(400);
 			pathX += 50;
 			root.getChildren().add(a);
+			a.setOpacity(0);
 		}
+		
 	
 		//Ending Tile
 		Rectangle endTile = new Rectangle();
 		endTile.setWidth(50);
 		endTile.setHeight(50);
 		endTile.setFill(Color.ORANGERED);
+		endTile.setOpacity(0.3);
 		
 		endTile.setLayoutX(850); //STARTING POINT OF CHARACTER
 		endTile.setLayoutY(400); //STARTING POINT OF CHARACTER
@@ -199,6 +225,8 @@ public class LevelOne{
 		
 		root.getChildren().add(startTile);
 		root.getChildren().add(endTile);
+	
+		
 		
 		//Level Tiles
 		//Level Tiles
@@ -252,6 +280,7 @@ public class LevelOne{
 		displayStep_one.setLayoutY(50);
 		displayStep_one.setStyle("-fx-border-color: black;");
 		displayStep_one.setAlignment(Pos.CENTER);
+		displayStep_one.setOpacity(0.3);
 		
 		displayStep_two.setPrefWidth(50);
 		displayStep_two.setPrefHeight(50);
@@ -302,6 +331,16 @@ public class LevelOne{
 		coinCount.setAlignment(Pos.CENTER);
 		coinCount.setText(Integer.toString(totalCoin));
 		
+		
+		root.setStyle(
+				"-fx-background-image: url('assets/Map1.jpg');" +
+				"-fx-background-size: cover;");
+		
+		
+		//root.getChildren().add(view);
+		/*root.setPrefSize(1838, 1357);
+		view.setOpacity(0.7);*/
+		
 		root.getChildren().add(directionUp); 
 		root.getChildren().add(directionDown);
 		root.getChildren().add(directionLeft);
@@ -318,8 +357,13 @@ public class LevelOne{
 		
 		root.getChildren().add(coinImage);
 		root.getChildren().add(coinCount);
+	
+		
+		//root.setCenterShape(view);
+		
 		
 		player1.toFront();
+		
 		
 		directionUp.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -468,7 +512,8 @@ public class LevelOne{
                         public void handle(WorkerStateEvent event) {
                         	totalCoin++;
                         	coinCount.setText(Integer.toString(totalCoin));
-                            pathTileCoin.setFill(Color.DARKGREY);
+                            pathTileCoin.setFill(Color.TRANSPARENT);
+                        
                         }
                     });
                     
@@ -497,7 +542,7 @@ public class LevelOne{
                                 public void handle(WorkerStateEvent event) {
                                 	totalCoin++;
                                 	coinCount.setText(Integer.toString(totalCoin));
-                                    pathTileCoin2.setFill(Color.DARKGREY);
+                                    pathTileCoin2.setFill(Color.TRANSPARENT);
                                 }
                             });
                             
@@ -621,6 +666,7 @@ public class LevelOne{
 		win.toFront();
 		
 		root.getChildren().add(win);
+		
 		
 		Task<Void> displayWin = new Task<Void>() {
             @Override
