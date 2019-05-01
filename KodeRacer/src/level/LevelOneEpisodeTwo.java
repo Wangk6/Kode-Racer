@@ -40,18 +40,16 @@ public class LevelOneEpisodeTwo {
 
 	private Pane root = new Pane();
 	String backgroundAudio = "src/assets/Intro.mp3";
-    
-    Media sound = new Media(new File(backgroundAudio).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(sound);
-    
-    public void initialize(URL location, ResourceBundle resource) {
+
+	Media sound = new Media(new File(backgroundAudio).toURI().toString());
+	MediaPlayer mediaPlayer = new MediaPlayer(sound);
+
+	public void initialize(URL location, ResourceBundle resource) {
 		// TODO Auto-generated method stub
-		
-		mediaPlayer.play();		
-	    	
-		
-	}	
-	
+
+		mediaPlayer.play();
+
+	}
 
 	// Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random",
 	// Color.RED); //Keep the W & H to 25, because we're moving at 5's
@@ -596,8 +594,8 @@ public class LevelOneEpisodeTwo {
 			@Override
 			public void handle(WorkerStateEvent event) {
 				LevelOneEpisodeThree three = new LevelOneEpisodeThree();
-				closeProgram();
 				three.start();
+				closeProgram();
 			}
 		});
 

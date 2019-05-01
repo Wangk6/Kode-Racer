@@ -851,6 +851,7 @@ public class LevelThreeEpisodeThree {
 								} else {
 									// do jitter animation
 									System.err.println("Wrong Sequence");
+									wrongSequence();
 								}
 							}
 							player1.setRotate(90);
@@ -1090,7 +1091,6 @@ public class LevelThreeEpisodeThree {
         		rect.setFill(new ImagePattern(face));
         		rect.toFront();
         		root.getChildren().add(rect);
-        		closeProgram();
             }
         });
         

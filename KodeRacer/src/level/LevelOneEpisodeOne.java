@@ -562,8 +562,8 @@ public class LevelOneEpisodeOne {
 			@Override
 			public void handle(WorkerStateEvent event) {
 				LevelOneEpisodeTwo two = new LevelOneEpisodeTwo();
-				closeProgram();
 				two.start();
+				closeProgram();
 			}
 		});
 

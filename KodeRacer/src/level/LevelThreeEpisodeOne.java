@@ -813,6 +813,7 @@ public class LevelThreeEpisodeOne {
             public void handle(WorkerStateEvent event) {
 				LevelThreeEpisodeTwo two = new LevelThreeEpisodeTwo();
 				two.start();
+				closeProgram();
             }
         });
         
