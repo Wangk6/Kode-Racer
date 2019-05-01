@@ -13,6 +13,11 @@
             <Font name="VCR OSD Mono" size="60.0" />
          </font>
       </Text>
+      <Button layoutX="300.0" layoutY="330.0" mnemonicParsing="false" onAction="#secretGame" prefHeight="50.0" prefWidth="200.0" text="Surprise" textAlignment="CENTER">
+         <font>
+            <Font name="VCR OSD Mono" size="13.0" />
+         </font>
+      </Button>
       <Button layoutX="300.0" layoutY="392.0" mnemonicParsing="false" onAction="#goHome" prefHeight="50.0" prefWidth="200.0" text="Done" textAlignment="CENTER">
          <font>
             <Font name="VCR OSD Mono" size="13.0" />

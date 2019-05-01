@@ -12,8 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import kooda.fp.MiniGame;
 
 public class SettingsController implements Initializable {
+	
+	private static MiniGame mini = new MiniGame();
+
+	
     Stage sn;
     @FXML
     private AnchorPane landing;
@@ -26,12 +31,18 @@ public class SettingsController implements Initializable {
     
     @FXML
     private Slider mVolumeSlider;
-
+    
+    
 
     @FXML
     void goHome(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/MainMenu.fxml"));
         landing.getChildren().setAll(pane);
+    }
+    
+    @FXML
+    void secretGame(ActionEvent event) throws IOException {
+        mini.start();
     }
 
     @Override

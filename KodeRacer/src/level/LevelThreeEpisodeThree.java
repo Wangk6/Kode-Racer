@@ -1090,7 +1090,7 @@ public class LevelThreeEpisodeThree {
         		rect.setFill(new ImagePattern(face));
         		rect.toFront();
         		root.getChildren().add(rect);
-
+        		closeProgram();
             }
         });
         
@@ -1102,7 +1102,7 @@ public class LevelThreeEpisodeThree {
 			startedGame();
 		try {
 			stage.setResizable(false);
-			stage.setTitle("Level One");
+			stage.setTitle("Level Three - EP3");
 			stage.setOnCloseRequest(e -> closeProgram());
 			stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 			stage.setScene(new Scene(createContent()));

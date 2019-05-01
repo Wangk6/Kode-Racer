@@ -641,7 +641,7 @@ public class LevelTwoEpisodeTwo {
 			startedGame();
 		try {
 		stage.setResizable(false);
-		stage.setTitle("Level Two");
+		stage.setTitle("Level Two - EP2");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(

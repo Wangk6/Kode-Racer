@@ -589,7 +589,7 @@ public class LevelThreeEpisodeTwo {
 		win.setPrefWidth(450);
 		win.setLayoutX(225);
 		win.setLayoutY(225);
-		win.setText("Proceeding to Level Three");
+		win.setText("Proceeding to Episode Three");
 		win.setAlignment(Pos.BASELINE_CENTER);
 		win.setFont(Font.font(25));
 		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
@@ -611,7 +611,7 @@ public class LevelThreeEpisodeTwo {
         displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
             @Override
             public void handle(WorkerStateEvent event) {
-            	LevelThreeEpisodeOne three = new LevelThreeEpisodeOne();
+            	LevelThreeEpisodeThree three = new LevelThreeEpisodeThree();
         		closeProgram();
         		three.start();
             }
@@ -655,7 +655,7 @@ public class LevelThreeEpisodeTwo {
 			startedGame();
 		try {
 		stage.setResizable(false);
-		stage.setTitle("Level Two");
+		stage.setTitle("Level Three - EP2");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(

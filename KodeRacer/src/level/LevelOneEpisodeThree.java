@@ -666,9 +666,9 @@ public class LevelOneEpisodeThree{
 		displayWin.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 			@Override
 			public void handle(WorkerStateEvent event) {
-				LevelTwoEpisodeTwo three = new LevelTwoEpisodeTwo();
+				LevelTwoEpisodeOne two = new LevelTwoEpisodeOne();
 				closeProgram();
-				three.start();
+				two.start();
 			}
 		});
         
@@ -681,7 +681,7 @@ public class LevelOneEpisodeThree{
 		try {
 		//Set started game to true
 		stage.setResizable(false);
-		stage.setTitle("Level One");
+		stage.setTitle("Level One - EP3");
 		stage.setOnCloseRequest(e -> closeProgram());
         stage.getIcons().add(new Image(this.getClass().getResource("/assets/gameIcon.png").toString()));
 		stage.setScene(
