@@ -23,6 +23,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import kooda.fp.Driver;
 import kooda.fp.Settings;
@@ -36,12 +38,19 @@ public class MainMenuController implements Initializable {
     public static LevelOneEpisodeOne one = new LevelOneEpisodeOne();
     @FXML
     private AnchorPane landing;
+    String backgroundAudio = "src/assets/Intro.mp3";
+    
+    Media sound = new Media(new File(backgroundAudio).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
     
     
     @FXML
     protected void pressPlayLevel(ActionEvent event) throws IOException {
         System.out.println("Level One");
         one.start();
+        
+        mediaPlayer.setMute(true);//stop music on click
+        
     }
     
     @FXML
@@ -49,6 +58,7 @@ public class MainMenuController implements Initializable {
         System.out.println("Loaded");
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/fxml/LevelSelect.fxml"));
         landing.getChildren().setAll(pane);
+        mediaPlayer.setMute(true);//stop music on click
     }
     
     
@@ -84,26 +94,14 @@ public class MainMenuController implements Initializable {
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    	//themeSong("/assets/Pacman.wav");
-    }
-    
-    public static void themeSong(String filepath) {
-    	
-    	InputStream sound;
-    	try {
-    		
-    		sound = new FileInputStream(new File(filepath));
-    		AudioStream audio = new AudioStream(sound);
-    		AudioPlayer.player.start(audio);
-    		   		
-    	}
-    	catch(Exception e) {
-    		
-    		JOptionPane.showMessageDialog(null, "Error playing sound file");
-    		
-    	}
-    }
+	public void initialize(URL location, ResourceBundle resource) {
+		// TODO Auto-generated method stub
+		
+		mediaPlayer.play();		
+	    	
+		
+	}
+ 
  	
   }
 
