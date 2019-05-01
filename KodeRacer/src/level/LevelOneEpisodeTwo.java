@@ -1,6 +1,10 @@
 package level;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.ResourceBundle;
+
 import javafx.animation.Transition;
 import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
@@ -20,6 +24,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -33,6 +39,19 @@ public class LevelOneEpisodeTwo {
 	Stage stage = new Stage();
 
 	private Pane root = new Pane();
+	String backgroundAudio = "src/assets/Intro.mp3";
+    
+    Media sound = new Media(new File(backgroundAudio).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+    
+    public void initialize(URL location, ResourceBundle resource) {
+		// TODO Auto-generated method stub
+		
+		mediaPlayer.play();		
+	    	
+		
+	}	
+	
 
 	// Sprite player1 = new Sprite(300, 300, (int)width/25, (int)width/25, "random",
 	// Color.RED); //Keep the W & H to 25, because we're moving at 5's
@@ -82,7 +101,7 @@ public class LevelOneEpisodeTwo {
 	 */
 	private Parent createContent() {
 		// Set the level size
-		root.setPrefSize(900, 900);
+		root.setPrefSize(900, 800);
 		root.getChildren().add(player1);
 
 		// Starting Tile

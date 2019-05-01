@@ -83,7 +83,7 @@ public class LevelOneEpisodeThree{
 	 */
 	private Parent createContent() {
 		//Set the level size
-		root.setPrefSize(900, 900);
+		root.setPrefSize(900, 800);
 		root.getChildren().add(player1);
 		
 		//Level Tiles

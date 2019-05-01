@@ -1,6 +1,10 @@
 package level;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
+import java.util.ResourceBundle;
+
 import javafx.animation.Transition;
 import javafx.animation.Animation.Status;
 import javafx.animation.FadeTransition;
@@ -20,6 +24,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -31,6 +37,12 @@ public class LevelOneEpisodeOne {
 	// Keep track of if game stage was created, if so just start
 	boolean startedGame = false;
 	Stage stage = new Stage();
+	String backgroundAudio = "src/assets/Level1.mp3";
+    
+    Media sound = new Media(new File(backgroundAudio).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(sound);   	
+		
+	
 
 	private Pane root = new Pane();
 
@@ -38,7 +50,8 @@ public class LevelOneEpisodeOne {
 	// Color.RED); //Keep the W & H to 25, because we're moving at 5's
 	Sprite player1 = new Sprite(0, 200, 50, 50, "random", Color.TRANSPARENT); // Keep the W & H to 25, because we're
 																				// moving at 5's
-	Image coin = new Image("assets/coin.jpg");
+	Image coin = new Image("assets/coin.png");
+	
 
 	private Button play = new Button();
 	private Button clear = new Button(); // returns 3
@@ -82,7 +95,7 @@ public class LevelOneEpisodeOne {
 	 */
 	private Parent createContent() {
 		// Set the level size
-		root.setPrefSize(900, 900);
+		root.setPrefSize(900, 800);
 		root.getChildren().add(player1);
 
 		// Level Tiles
@@ -95,6 +108,7 @@ public class LevelOneEpisodeOne {
 		startTile.setWidth(50);
 		startTile.setHeight(50);
 		startTile.setFill(Color.LAWNGREEN);
+		startTile.setOpacity(0.3);
 
 		startTile.setLayoutX(0); // STARTING POINT OF CHARACTER
 		startTile.setLayoutY(200); // STARTING POINT OF CHARACTER
@@ -111,8 +125,10 @@ public class LevelOneEpisodeOne {
 			pathTile.setLayoutY(200);
 			pathTile.setFill(Color.DARKGREY);
 			pathTile.setStroke(Color.WHITESMOKE);
+			pathTile.setOpacity(0);//make tiles non-visible
 			pathX += 50;
 			root.getChildren().add(pathTile);
+			
 		}
 
 		Rectangle pathTileCoin = new Rectangle();
@@ -121,7 +137,7 @@ public class LevelOneEpisodeOne {
 		pathTileCoin.setLayoutX(200);
 		pathTileCoin.setLayoutY(200);
 		pathTileCoin.setFill(new ImagePattern(coin));
-		pathTileCoin.setStroke(Color.WHITESMOKE);
+		//pathTileCoin.setStroke(Color.WHITESMOKE); //remove white border for coin
 		root.getChildren().add(pathTileCoin);
 
 		// Ending Tile
@@ -129,6 +145,7 @@ public class LevelOneEpisodeOne {
 		endTile.setWidth(50);
 		endTile.setHeight(50);
 		endTile.setFill(Color.ORANGERED);
+		endTile.setOpacity(0.3);
 
 		endTile.setLayoutX(850); // STARTING POINT OF CHARACTER
 		endTile.setLayoutY(200); // STARTING POINT OF CHARACTER
@@ -256,6 +273,14 @@ public class LevelOneEpisodeOne {
 		root.getChildren().add(coinImage);
 		root.getChildren().add(coinCount);
 
+		root.setStyle(
+				"-fx-background-image:url('assets/Level1E1.png');"
+				+ "-fx-background-size: cover;");//pane background
+		mediaPlayer.play();//play audio
+		
+		
+		
+		
 		player1.toFront();
 
 		directionUp.setOnAction(new EventHandler<ActionEvent>() {
@@ -406,7 +431,7 @@ public class LevelOneEpisodeOne {
 							public void handle(WorkerStateEvent event) {
 								totalCoin++;
 								coinCount.setText(Integer.toString(totalCoin));
-								pathTileCoin.setFill(Color.DARKGREY);
+								pathTileCoin.setFill(Color.TRANSPARENT);
 							}
 						});
 
@@ -518,6 +543,7 @@ public class LevelOneEpisodeOne {
 		win.setFont(Font.font(25));
 		win.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, null, null)));
 		win.toFront();
+		mediaPlayer.setMute(true);
 
 		root.getChildren().add(win);
 
@@ -600,5 +626,5 @@ public class LevelOneEpisodeOne {
 	private void closeProgram() {
 		stage.close();
 	}
-
+		
 }
